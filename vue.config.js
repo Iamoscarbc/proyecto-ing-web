@@ -3,7 +3,7 @@ const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
   lintOnSave: false,
-  publicPath: isProd ? "/vue-argon-dashboard/" : "",
+  publicPath: isProd ? "/proyecto-ing-web/" : "/",
   configureWebpack: {
     // Set up all the aliases we use in our app.
     plugins: [
