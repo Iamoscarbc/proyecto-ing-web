@@ -1,5 +1,5 @@
 # [Vue Argon Dashboard](https://demos.creative-tim.com/vue-argon-dashboard/?ref=ada-github-readme) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/home?status=Vue%20Argon%20Dashboard%20is%20a%20Free%20Bootstrap%20and%Vue.js%20Dashboard%20made%20using%vue-cli%20%E2%9D%A4%EF%B8%8F%0Ahttps%3A//demos.creative-tim.com/vue-argon-dashboard%20%vue.js%20%23vue-cli%20%23argon%20%23argondesign%20%23angulardashboard%20%23argonvue%20%23vuedesign%20%23bootstrap%20%23design%20%23uikit%20%23freebie%20%20via%20%40CreativeTim)
-
+<!-- 
 
 
  ![version](https://img.shields.io/badge/version-1.0.0-blue.svg)  ![license](https://img.shields.io/badge/license-MIT-blue.svg) [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/vue-argon-dashboard.svg?maxAge=2592000)](https://github.com/creativetimofficial/vue-argon-dashboard/issues?q=is%3Aopen+is%3Aissue) [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/vue-argon-dashboard.svg?maxAge=2592000)](https://github.com/creativetimofficial/vue-argon-dashboard/issues?q=is%3Aissue+is%3Aclosed) [![Join the chat at https://gitter.im/NIT-dgp/General](https://badges.gitter.im/NIT-dgp/General.svg)](https://gitter.im/creative-tim-general/Lobby) [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/E4aHAQy)
@@ -218,4 +218,4 @@ Facebook: <https://www.facebook.com/CreativeTim?ref=creativetim>
 
 Dribbble: <https://dribbble.com/creativetim?ref=creativetim>
 
-Instagram: <https://www.instagram.com/CreativeTimOfficial?ref=creativetim>
+Instagram: <https://www.instagram.com/CreativeTimOfficial?ref=creativetim> -->
