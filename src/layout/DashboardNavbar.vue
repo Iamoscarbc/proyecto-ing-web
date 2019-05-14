@@ -20,35 +20,35 @@
                   <img alt="Image placeholder" src="img/theme/team-4-800x800.jpg">
                 </span>
                         <div class="media-body ml-2 d-none d-lg-block">
-                            <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
+                            <span class="mb-0 text-sm  font-weight-bold" style="text-transform: capitalize;cursor:pointer;">{{firstname}} {{lastname}}</span>
                         </div>
                     </div>
 
                     <template>
                         <div class=" dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome!</h6>
+                            <h6 class="text-overflow m-0">Bienvenido</h6>
                         </div>
+                        <router-link to="/home" class="dropdown-item">
+                            <i class="ni ni-tv-2"></i>
+                            <span>Inicio</span>
+                        </router-link>
                         <router-link to="/profile" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
-                            <span>My profile</span>
+                            <span>Mi Perfil</span>
                         </router-link>
-                        <router-link to="/profile" class="dropdown-item">
-                            <i class="ni ni-settings-gear-65"></i>
-                            <span>Settings</span>
-                        </router-link>
-                        <router-link to="/profile" class="dropdown-item">
+                        <!-- <router-link to="/profile" class="dropdown-item">
                             <i class="ni ni-calendar-grid-58"></i>
                             <span>Activity</span>
                         </router-link>
                         <router-link to="/profile" class="dropdown-item">
                             <i class="ni ni-support-16"></i>
                             <span>Support</span>
-                        </router-link>
+                        </router-link> -->
                         <div class="dropdown-divider"></div>
-                        <router-link to="/profile" class="dropdown-item">
+                        <div class="dropdown-item" @click="logout()" style="cursor:pointer;">
                             <i class="ni ni-user-run"></i>
-                            <span>Logout</span>
-                        </router-link>
+                            <span>Cerrar Sesión</span>
+                        </div>
                     </template>
                 </base-dropdown>
             </li>
@@ -56,15 +56,75 @@
     </base-nav>
 </template>
 <script>
+import Swal from 'sweetalert2'
+const axios = require('axios');
   export default {
     data() {
       return {
+        firstname : '',
+        lastname : '',
         activeNotifications: false,
         showMenu: false,
         searchQuery: ''
       };
     },
+    mounted(){
+      // let jwt = JSON.parse(this.$store.state.token).data.jwt;
+      // let _this = this;      
+      // let dominio = "http://35.236.27.209/php_api_jwt/api";
+      // localStorage.setItem("dominio",dominio);
+      // let data = localStorage.getItem("data");
+      // if(data){
+      //   if(this.isJson(data)){
+      //     let data_parseada = JSON.parse(data);
+      //     this.firstname = data_parseada.firstname;
+      //     this.lastname = data_parseada.lastname;
+      //   }
+      // }
+    },
     methods: {
+      isJson(str) {
+          try {
+              JSON.parse(str);
+          } catch (e) {
+              return false;
+          }
+          return true;
+      },
+      logout(){        
+        let _this = this;
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Seguro que quiere cerrar su sesión?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Cancelar',
+            cancelButtonText: 'Cerrar Sesión',
+            reverseButtons: true
+        }).then((result) => {
+          if (result.dismiss === Swal.DismissReason.cancel) {
+              Swal.fire({
+                html: '<h2>Cerrando sesión</h2>',
+                timer: 1000,
+                onBeforeOpen: () => {
+                  Swal.showLoading(); 
+                },
+                onClose: () =>{
+                  localStorage.removeItem("KbGciOAiUbG1NiJ9iJIV1I");
+                  localStorage.removeItem("data");
+                  _this.$router.replace("/login");
+                }
+              })
+          }
+        })
+      },
       toggleSidebar() {
         this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
       },

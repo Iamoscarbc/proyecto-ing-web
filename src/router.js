@@ -8,6 +8,11 @@ export default new Router({
   linkExactActiveClass: 'active',
   routes: [
     {
+      path: '*',
+      redirect: 'login',
+      name: 'login'
+    },
+    {
       path: '/',
       redirect: 'login',
       component: AuthLayout,
@@ -18,16 +23,17 @@ export default new Router({
           component: () => import(/* webpackChunkName: "demo" */ './views/Login.vue')
         },
         {
-          path: '/register',
-          name: 'register',
+          path: '/registro',
+          name: 'registro',
           component: () => import(/* webpackChunkName: "demo" */ './views/Register.vue')
         }
       ]
     },
     {
-      path: '/',
+      path: '/home',
       redirect: 'dashboard',
       component: DashboardLayout,
+      name: 'DashboardLayout',
       children: [
         {
           path: '/dashboard',

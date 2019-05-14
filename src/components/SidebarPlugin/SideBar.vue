@@ -33,29 +33,29 @@
                         </a>
 
                         <div class=" dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome!</h6>
+                            <h6 class="text-overflow m-0">Bienvenido</h6>
                         </div>
+                        <router-link to="/home" class="dropdown-item">
+                            <i class="ni ni-tv-2"></i>
+                            <span>Inicio</span>
+                        </router-link>
                         <router-link to="/profile" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
-                            <span>My profile</span>
+                            <span>Mi Perfil</span>
                         </router-link>
-                        <router-link to="/profile" class="dropdown-item">
-                            <i class="ni ni-settings-gear-65"></i>
-                            <span>Settings</span>
-                        </router-link>
-                        <router-link to="/profile" class="dropdown-item">
+                        <!-- <router-link to="/profile" class="dropdown-item">
                             <i class="ni ni-calendar-grid-58"></i>
                             <span>Activity</span>
                         </router-link>
                         <router-link to="/profile" class="dropdown-item">
                             <i class="ni ni-support-16"></i>
                             <span>Support</span>
-                        </router-link>
+                        </router-link> -->
                         <div class="dropdown-divider"></div>
-                        <a href="#!" class="dropdown-item">
+                        <div class="dropdown-item" @click="logout()">
                             <i class="ni ni-user-run"></i>
-                            <span>Logout</span>
-                        </a>
+                            <span>Cerrar Sesión</span>
+                        </div>
                     </base-dropdown>
                 </ul>
             </slot>
@@ -84,6 +84,8 @@
     </nav>
 </template>
 <script>
+import Swal from 'sweetalert2'
+const axios = require('axios');
   import NavbarToggleButton from '@/components/NavbarToggleButton'
 
   export default {
@@ -115,6 +117,39 @@
       },
       showSidebar() {
         this.$sidebar.displaySidebar(true)
+      },
+      logout(){        
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Seguro que quiere cerrar su sesión?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Cancelar',
+            cancelButtonText: 'Cerrar Sesión',
+            reverseButtons: true
+        }).then((result) => {
+          if (result.dismiss === Swal.DismissReason.cancel) {
+              Swal.fire({
+                html: '<h2>Cerrando sesión</h2>',
+                timer: 1000,
+                onBeforeOpen: () => {
+                  Swal.showLoading(); 
+                },
+                onClose: () =>{
+                  localStorage.removeItem("eyJ0eXAiOV1QiLCJhbGciOiJIUzI1NiJ9IU");
+                  localStorage.removeItem("data");
+                  this.$router.replace("/login");
+                }
+              })
+          }
+        })
       }
     },
     beforeDestroy() {

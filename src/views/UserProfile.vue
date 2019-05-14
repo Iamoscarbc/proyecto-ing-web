@@ -1,16 +1,16 @@
 <template>
     <div>
         <base-header class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
-                     style="min-height: 600px; background-image: url(img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+                     style="min-height: 500px; background-image: url(img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
             <!-- Mask -->
             <span class="mask bg-gradient-success opacity-8"></span>
             <!-- Header container -->
             <div class="container-fluid d-flex align-items-center">
                 <div class="row">
                     <div class="col-lg-7 col-md-10">
-                        <h1 class="display-2 text-white">Hello Jesse</h1>
-                        <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-                        <a href="#!" class="btn btn-info">Edit profile</a>
+                        <h1 class="display-2 text-white" style="text-transform:capitalize">Hola {{resumirnombre}}</h1>
+                        <p class="text-white mt-0">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+                        <!-- <a href="#!" class="btn btn-info">Editar perfil</a> -->
                     </div>
                 </div>
             </div>
@@ -19,7 +19,6 @@
         <div class="container-fluid mt--7">
             <div class="row">
                 <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
-
                     <div class="card card-profile shadow">
                         <div class="row justify-content-center">
                             <div class="col-lg-3 order-lg-2">
@@ -32,32 +31,32 @@
                         </div>
                         <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                             <div class="d-flex justify-content-between">
-                                <base-button size="sm" type="info" class="mr-4">Connect</base-button>
-                                <base-button size="sm" type="default" class="float-right">Message</base-button>
+                                <base-button size="sm" type="info" class="mr-4">Conectar</base-button>
+                                <base-button size="sm" type="default" class="float-right">Mensaje</base-button>
                             </div>
                         </div>
                         <div class="card-body pt-0 pt-md-4">
                             <div class="row">
                                 <div class="col">
                                     <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                                        <div>
+                                        <div  v-if="model.firstname == 'asod8uyasuhd8ayshiduags8dygiausgd'">
                                             <span class="heading">22</span>
-                                            <span class="description">Friends</span>
+                                            <span class="description">Amigos</span>
                                         </div>
-                                        <div>
+                                        <div  v-if="model.firstname == 'asod8uyasuhd8ayshiduags8dygiausgd'">
                                             <span class="heading">10</span>
-                                            <span class="description">Photos</span>
+                                            <span class="description">Fotos</span>
                                         </div>
-                                        <div>
+                                        <div  v-if="model.firstname == 'asod8uyasuhd8ayshiduags8dygiausgd'">
                                             <span class="heading">89</span>
-                                            <span class="description">Comments</span>
+                                            <span class="description">Comentarios</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <h3>
-                                    Jessica Jones<span class="font-weight-light">, 27</span>
+                                <h3 style="text-transform:capitalize">
+                                    {{model.firstname}} {{model.lastname}}<span class="font-weight-light">, 27</span>
                                 </h3>
                                 <div class="h5 font-weight-300">
                                     <i class="ni location_pin mr-2"></i>Bucharest, Romania
@@ -81,10 +80,10 @@
                         <div slot="header" class="bg-white border-0">
                             <div class="row align-items-center">
                                 <div class="col-8">
-                                    <h3 class="mb-0">My account</h3>
+                                    <h3 class="mb-0">Mi Cuenta</h3>
                                 </div>
-                                <div class="col-4 text-right">
-                                    <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+                                <div class="col-4 text-right" v-if="boton_habilitar==false">
+                                    <a href="#!" class="btn btn-sm btn-primary" @click="habilitar_editar()">Editar Perfil</a>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +115,7 @@
                                                         label="First name"
                                                         placeholder="First name"
                                                         input-classes="form-control-alternative"
-                                                        v-model="model.firstName"
+                                                        v-model="model.firstname"
                                             />
                                         </div>
                                         <div class="col-lg-6">
@@ -124,7 +123,7 @@
                                                         label="Last name"
                                                         placeholder="Last name"
                                                         input-classes="form-control-alternative"
-                                                        v-model="model.lastName"
+                                                        v-model="model.lastname"
                                             />
                                         </div>
                                     </div>
@@ -181,6 +180,16 @@
                                         </base-input>
                                     </div>
                                 </div>
+                                <div class="pl-lg-4">
+                                    <div class="row" style="justify-content:flex-end">
+                                        <div class="col text-right" v-if="boton_habilitar==true">
+                                            <a href="#!" class="btn btn-sm btn-primary" @click="guardar_cambios(model)">Guardar Cambios</a>
+                                        </div>
+                                        <div class="col flex-grow-1 text-right" v-if="boton_habilitar==true" style="max-width:100px">
+                                            <a href="#!" class="btn btn-sm btn-danger" @click="habilitar_editar()">Cancelar</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </template>
                     </card>
@@ -190,6 +199,8 @@
     </div>
 </template>
 <script>
+import Swal from 'sweetalert2'
+const axios = require('axios');
   export default {
     name: 'user-profile',
     data() {
@@ -197,16 +208,166 @@
         model: {
           username: '',
           email: '',
-          firstName: '',
-          lastName: '',
+          firstname: '',
+          lastname: '',
           address: '',
           city: '',
           country: '',
           zipCode: '',
           about: '',
-        }
+          tipo: '',
+          dominio: ''
+        },
+        boton_habilitar : false
       }
     },
+    mounted(){
+        // let data = localStorage.getItem("data");
+        // let dominio = localStorage.getItem("dominio");
+        // if(dominio){
+        //     this.model.dominio = dominio;            
+        // }else{
+        //     localStorage.setItem("dominio","http://35.236.27.209/php_api_jwt/api");
+        //     this.model.dominio = localStorage.getItem("dominio");
+        // }
+        // let forms = document.getElementsByClassName("form-control-alternative")
+        // forms[2].style.textTransform = "capitalize"
+        // forms[3].style.textTransform = "capitalize"
+        // let Arreglo_data = Array.prototype.slice.call(forms);
+        // Arreglo_data.forEach(element => {
+        //     element.disabled = true;
+        // });
+        // if(data){
+        //     if(this.isJson(data)){
+        //         let data_parseada = JSON.parse(data);
+        //         this.model.username = data_parseada.username;
+        //         this.model.firstname = data_parseada.firstname;
+        //         this.model.lastname = data_parseada.lastname;
+        //         this.model.tipo = data_parseada.tipo;
+        //     }
+        // }
+    },
+    methods:{
+        isJson(str) {
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+            return true;
+        },
+        habilitar_editar(){
+            let data = localStorage.getItem("data");
+            let forms = document.getElementsByClassName("form-control-alternative")
+            let Arreglo_data = Array.prototype.slice.call(forms);
+            if(this.boton_habilitar == false){
+                Arreglo_data.forEach(element => {
+                    element.disabled = false;
+                });
+                this.boton_habilitar = true;
+            }else{
+                if(data){
+                    if(this.isJson(data)){
+                        let data_parseada = JSON.parse(data);
+                        this.model.username = data_parseada.username;
+                        this.model.firstname = data_parseada.firstname;
+                        this.model.lastname = data_parseada.lastname;
+                    }
+                }
+                Arreglo_data.forEach(element => {
+                    element.disabled = true;
+                });
+                this.boton_habilitar = false;
+            }
+        },
+        guardar_cambios(model){            
+            let data = localStorage.getItem("data");
+            let token = this.$store.state.token;
+            let _this = this;
+            if(data && token){
+                if(this.isJson(data) && this.isJson(token)){
+                    let token_parseado = JSON.parse(token);
+                    let jwt = token_parseado.data.jwt;
+                    axios({
+                        method: 'post',
+                        url: _this.model.dominio+'/controller/update_user.php',
+                        data :{
+                            jwt: jwt,
+                            username: this.model.username,
+                            firstname: this.model.firstname,
+                            lastname: this.model.lastname
+                        },
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(function (response){
+                        if(response.data.success){
+                            Swal.fire({
+                                type: 'success',
+                                title: response.data.message,
+                                showConfirmButton:false,                            
+                                timer: 1500,  
+                            })
+                            jwt = response.data.jwt;
+                            axios({
+                                method: 'post',
+                                url: _this.model.dominio+'/model/functions/validate_token.php',
+                                data :{
+                                    jwt: response.data.jwt
+                                },
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                }
+                            }).then(function (response){
+                                if(response.data.success == true){  
+                                    let data_nuevo = JSON.stringify(response.data.data);
+                                    localStorage.setItem("data",data_nuevo);
+                                    _this.model.username = response.data.data.username;
+                                    _this.model.firstname = response.data.data.firstname;
+                                    _this.model.lastname = response.data.data.lastname;
+                                    _this.model.tipo = response.data.data.tipo;
+                                }                 
+                            }).catch(function (error) {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: 'Error de servidor ' + error,
+                                    showConfirmButton:false,
+                                    backdrop: 'rgba(255,255,255,1)',
+                                    timer: 1500,
+                                    onClose: () => {
+                                    _this.$router.replace("/login");
+                                    }
+                                })
+                            });         
+                        }else{
+                            Swal.fire({
+                                type: 'error',
+                                title: response.data.message,
+                                showConfirmButton:false,                            
+                                timer: 1500,  
+                            })
+                        }                    
+                    }).catch(function (error) {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Error de servidor ' + error,
+                            showConfirmButton:false,
+                            timer: 1500
+                        })
+                    });
+                }
+            }
+            
+        }
+    },
+    computed:{
+        resumirnombre: function () {  
+            let nombre  = this.model.firstname.split(' ');  
+            return nombre[0]
+        },
+    }
   };
 </script>
 <style></style>

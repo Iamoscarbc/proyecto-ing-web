@@ -3,7 +3,7 @@
             <div class="col-lg-5 col-md-7">
                 <div class="card bg-secondary shadow border-0">
                     <div class="card-header bg-transparent pb-5">
-                        <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
+                        <div class="text-muted text-center mt-2 mb-3"><small>Loguearse con</small></div>
                         <div class="btn-wrapper text-center">
                             <a href="#" class="btn btn-neutral btn-icon">
                                 <span class="btn-inner--icon"><img src="img/icons/common/github.svg"></span>
@@ -17,13 +17,14 @@
                     </div>
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
-                            <small>Or sign in with credentials</small>
+                            <small>O Loguearse con sus credenciales</small>
                         </div>
                         <form role="form">
                             <base-input class="input-group-alternative mb-3"
-                                        placeholder="Email"
-                                        addon-left-icon="ni ni-email-83"
-                                        v-model="model.email">
+                                        placeholder="Username"
+                                        type="text"
+                                        addon-left-icon="ni ni-circle-08"
+                                        v-model="model.username">
                             </base-input>
 
                             <base-input class="input-group-alternative"
@@ -34,36 +35,79 @@
                             </base-input>
 
                             <base-checkbox class="custom-control-alternative">
-                                <span class="text-muted">Remember me</span>
+                                <span class="text-muted">Recordar, mi cuenta</span>
                             </base-checkbox>
+
                             <div class="text-center">
-                                <base-button type="primary" class="my-4">Sign in</base-button>
+                                <base-button type="primary" class="my-4" @click="login(model.username,model.password)">Ingresar</base-button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-6">
-                        <a href="#" class="text-light"><small>Forgot password?</small></a>
+                        <a href="#" class="text-light"><small>¿Olvidaste tu contraseña?</small></a>
                     </div>
                     <div class="col-6 text-right">
-                        <router-link to="/register" class="text-light"><small>Create new account</small></router-link>
+                        <a href="#" class="text-light" @click="goToRegistro()">
+                            <small>Regístrate aquí</small>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
 </template>
 <script>
+import Swal from 'sweetalert2'
+const axios = require('axios');
+
   export default {
     name: 'login',
     data() {
       return {
         model: {
-          email: '',
+          username: '',
           password: ''
         }
       }
-    }
+    },
+    methods:{
+        goToRegistro(){
+            let registro = document.getElementById("registro");
+            registro.click();
+        },
+        validar_titulo(param){
+            this.title_auth = this.$route.name;
+        },
+        isJson(str) {
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+            return true;
+        },
+        login(username, password){
+            let _this = this;
+            this.$store.dispatch('recuperarToken',{
+                username: username,
+                password: password,
+            }).then(response => {
+                let mensaje = response.message;
+                this.$store.dispatch('recuperarData',{
+                    jwt: response.jwt
+                }).then(response2 => {
+                    Swal.fire({
+                        type: 'success',
+                        title: mensaje,
+                        showConfirmButton:false,                            
+                        timer: 1500,  
+                    })
+                    _this.$router.push({name: 'DashboardLayout'})
+                })
+            })
+        }
+    }    
   }
 </script>
 <style>

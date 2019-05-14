@@ -37,13 +37,13 @@
                         </router-link>
                     </li>
                     <li class="nav-item" @click="validar_titulo('registrar')">
-                        <router-link class="nav-link nav-link-icon" to="/register">
+                        <router-link class="nav-link nav-link-icon" to="/registro" id="registro">
                             <i class="ni ni-circle-08"></i>
-                            <span class="nav-link-inner--text">Register</span>
+                            <span class="nav-link-inner--text">Registro</span>
                         </router-link>
                     </li>
                     <li class="nav-item" @click="validar_titulo('login')">
-                        <router-link class="nav-link nav-link-icon" to="/login">
+                        <router-link class="nav-link nav-link-icon" to="/login" id="login">
                             <i class="ni ni-key-25"></i>
                             <span class="nav-link-inner--text">Login</span>
                         </router-link>
@@ -63,8 +63,7 @@
                 <div class="header-body text-center mb-6">
                     <div class="row justify-content-center">
                         <div class="col-lg-5 col-md-6">
-                            <h1 v-if="login == true" class="text-white">Login</h1>
-                            <h1 v-else class="text-white">Regístrate</h1>
+                            <h1 class="text-white" style="text-transform:capitalize">{{title_auth}}</h1>
                         </div>
                     </div>
                 </div>
@@ -78,8 +77,8 @@
         </div>
         <!-- Page content -->
         <div class="container mt--9 pb-5">
-            <slide-y-up-transition mode="out-in" origin="center top">
-                <router-view></router-view>
+            <slide-y-up-transition mode="out-in" origin="center top" :title_auth="title_auth">
+                <router-view :title_auth="title_auth"></router-view>
             </slide-y-up-transition>
         </div>
         <footer class="py-5">
@@ -115,6 +114,7 @@
     </div>
 </template>
 <script>
+import Swal from 'sweetalert2'
   import { SlideYUpTransition } from 'vue2-transitions'
 
   export default {
@@ -127,17 +127,35 @@
         year: new Date().getFullYear(),
         showMenu: false,
         auth: false,
-        login: false
+        login: true,
+        title_auth : this.$route.name
       }
     },
     methods:{
         validar_titulo(param){
-            if(param == 'login'){
-                this.login = true;
-            }else{
-                this.login = false;
-            }
+            this.title_auth = this.$route.name;
         }
+    },
+    beforeMount(){
+        Swal.fire({
+            title: 'Cargando...',
+            backdrop: 'rgba(255,255,255,1)',
+            onBeforeOpen: () => {
+            Swal.showLoading(); 
+            }
+        })
+        let logueado = this.$store.getters.logueado;
+        logueado.then((response) => {
+            if(response.success == false){
+                this.$router.push({name: 'login'})
+                console.log("no entras");
+                Swal.close();
+            }else{
+                this.$router.push({name: 'DashboardLayout'})
+                console.log("de vuelta al dashboard");
+                Swal.close();
+            }
+        });
     }
   }
 </script>
