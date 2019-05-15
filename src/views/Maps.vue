@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        <dashboard-navbar></dashboard-navbar>   
         <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
             <!-- Card stats -->
             <div class="row">
@@ -76,6 +76,7 @@
     </div>
 </template>
 <script>
+import DashboardNavbar from '../layout/DashboardNavbar.vue';
   export default {
     mounted() {
       let google= window.google
@@ -119,7 +120,10 @@
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map, marker);
       });
-    }
+    },
+    components: {
+      DashboardNavbar,      
+    },
   }
 </script>
 <style>

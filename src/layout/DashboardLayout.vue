@@ -10,21 +10,21 @@
           :link="{
             name: 'Dashboard',
             icon: 'ni ni-tv-2 text-primary',
-            path: '/dashboard'
+            path: '/dashboard',
           }"
         />
 
-        <sidebar-item :link="{name: 'Icons', icon: 'ni ni-planet text-blue', path: '/icons'}"/>
-        <sidebar-item :link="{name: 'Maps', icon: 'ni ni-pin-3 text-orange', path: '/maps'}"/>
         <sidebar-item :link="{name: 'User Profile', icon: 'ni ni-single-02 text-yellow', path: '/profile'}"/>
+        <sidebar-item :link="{name: 'Maps', icon: 'ni ni-pin-3 text-orange', path: '/maps'}"/>
+        <sidebar-item :link="{name: 'Icons', icon: 'ni ni-planet text-blue', path: '/icons'}"/>
         <sidebar-item :link="{name: 'Tables', icon: 'ni ni-bullet-list-67 text-red', path: '/tables'}"/>
 
       </template>
     </side-bar>
     <div class="main-content" :data="sidebarBackground">
-      <dashboard-navbar></dashboard-navbar>
 
       <div @click="toggleSidebar">
+        <!-- <dashboard-navbar></dashboard-navbar> -->
         <fade-transition :duration="200" origin="center top" mode="out-in">
           <!-- your content here -->
           <router-view></router-view>
@@ -35,7 +35,6 @@
   </div>
 </template>
 <script>
-  import DashboardNavbar from './DashboardNavbar.vue';
   import ContentFooter from './ContentFooter.vue';
   import { FadeTransition } from 'vue2-transitions';
   
@@ -44,7 +43,6 @@
 
   export default {
     components: {
-      DashboardNavbar,
       ContentFooter,
       FadeTransition
     },
@@ -80,12 +78,18 @@
       logueado.then((response) => {
           if(response.success == false){
               this.$router.push({name: 'login'})
-              console.log("no entras");
               Swal.close();
           }else{
               this.$router.push({name: 'DashboardLayout'})
-              console.log("entraste");
               Swal.close();
+              Swal.fire({
+                title: `Bienvenido otra vez\nEstamos preparando todo...`,
+                backdrop: 'rgba(255,255,255,1)',
+                timer: 1500,
+                onBeforeOpen: () => {
+                  Swal.showLoading(); 
+                },
+              })              
           }
       });
     }

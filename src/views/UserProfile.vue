@@ -1,5 +1,6 @@
 <template>
     <div>
+        <dashboard-navbar></dashboard-navbar>    
         <base-header class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
                      style="min-height: 500px; background-image: url(img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
             <!-- Mask -->
@@ -199,53 +200,41 @@
     </div>
 </template>
 <script>
+import DashboardNavbar from '../layout/DashboardNavbar.vue';
 import Swal from 'sweetalert2'
+import { setTimeout } from 'timers';
 const axios = require('axios');
   export default {
     name: 'user-profile',
     data() {
       return {
         model: {
-          username: '',
+          username: this.$store.state.data.username,
           email: '',
-          firstname: '',
-          lastname: '',
+          firstname: this.$store.state.data.firstname,
+          lastname: this.$store.state.data.lastname,
           address: '',
           city: '',
           country: '',
           zipCode: '',
           about: '',
-          tipo: '',
+          tipo: this.$store.state.data.tipo,
           dominio: ''
         },
         boton_habilitar : false
       }
     },
+    components: {
+      DashboardNavbar,      
+    },
     mounted(){
-        // let data = localStorage.getItem("data");
-        // let dominio = localStorage.getItem("dominio");
-        // if(dominio){
-        //     this.model.dominio = dominio;            
-        // }else{
-        //     localStorage.setItem("dominio","http://35.236.27.209/php_api_jwt/api");
-        //     this.model.dominio = localStorage.getItem("dominio");
-        // }
-        // let forms = document.getElementsByClassName("form-control-alternative")
-        // forms[2].style.textTransform = "capitalize"
-        // forms[3].style.textTransform = "capitalize"
-        // let Arreglo_data = Array.prototype.slice.call(forms);
-        // Arreglo_data.forEach(element => {
-        //     element.disabled = true;
-        // });
-        // if(data){
-        //     if(this.isJson(data)){
-        //         let data_parseada = JSON.parse(data);
-        //         this.model.username = data_parseada.username;
-        //         this.model.firstname = data_parseada.firstname;
-        //         this.model.lastname = data_parseada.lastname;
-        //         this.model.tipo = data_parseada.tipo;
-        //     }
-        // }
+        let forms = document.getElementsByClassName("form-control-alternative")
+        forms[2].style.textTransform = "capitalize"
+        forms[3].style.textTransform = "capitalize"
+        let Arreglo_data = Array.prototype.slice.call(forms);
+        Arreglo_data.forEach(element => {
+            element.disabled = true;
+        });
     },
     methods:{
         isJson(str) {
@@ -281,83 +270,42 @@ const axios = require('axios');
             }
         },
         guardar_cambios(model){            
-            let data = localStorage.getItem("data");
             let token = this.$store.state.token;
-            let _this = this;
-            if(data && token){
-                if(this.isJson(data) && this.isJson(token)){
-                    let token_parseado = JSON.parse(token);
-                    let jwt = token_parseado.data.jwt;
-                    axios({
-                        method: 'post',
-                        url: _this.model.dominio+'/controller/update_user.php',
-                        data :{
-                            jwt: jwt,
+            let _this = this;            
+            let tv = document.getElementsByClassName("ni-tv-2 text-primary");
+            let single = document.getElementsByClassName("ni-single-02 text-yellow");
+            if(token){
+                this.$store.dispatch('recuperarData',{
+                    jwt: token
+                }).then(response => {
+                    if(response.success == true){
+                        _this.$store.dispatch("actualizarPerfil",{
+                            jwt: token,
                             username: this.model.username,
                             firstname: this.model.firstname,
-                            lastname: this.model.lastname
-                        },
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        }
-                    }).then(function (response){
-                        if(response.data.success){
-                            Swal.fire({
-                                type: 'success',
-                                title: response.data.message,
-                                showConfirmButton:false,                            
-                                timer: 1500,  
+                            lastname: this.model.lastname                        
+                        }).then(response => {      
+                            _this.$store.commit("recuperarToken",response.jwt)
+                            _this.$store.dispatch("recuperarData",response).then(response2 => {
+                                tv[0].click();
+                                setTimeout(() => {
+                                    single[0].click();                                    
+                                }, 200);
                             })
-                            jwt = response.data.jwt;
-                            axios({
-                                method: 'post',
-                                url: _this.model.dominio+'/model/functions/validate_token.php',
-                                data :{
-                                    jwt: response.data.jwt
-                                },
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json'
-                                }
-                            }).then(function (response){
-                                if(response.data.success == true){  
-                                    let data_nuevo = JSON.stringify(response.data.data);
-                                    localStorage.setItem("data",data_nuevo);
-                                    _this.model.username = response.data.data.username;
-                                    _this.model.firstname = response.data.data.firstname;
-                                    _this.model.lastname = response.data.data.lastname;
-                                    _this.model.tipo = response.data.data.tipo;
-                                }                 
-                            }).catch(function (error) {
-                                Swal.fire({
-                                    type: 'error',
-                                    title: 'Error de servidor ' + error,
-                                    showConfirmButton:false,
-                                    backdrop: 'rgba(255,255,255,1)',
-                                    timer: 1500,
-                                    onClose: () => {
-                                    _this.$router.replace("/login");
-                                    }
-                                })
-                            });         
-                        }else{
-                            Swal.fire({
-                                type: 'error',
-                                title: response.data.message,
-                                showConfirmButton:false,                            
-                                timer: 1500,  
-                            })
-                        }                    
-                    }).catch(function (error) {
+                        })
+                    }else{
                         Swal.fire({
                             type: 'error',
-                            title: 'Error de servidor ' + error,
+                            title: response.message,
                             showConfirmButton:false,
-                            timer: 1500
+                            backdrop: 'rgba(255,255,255,1)',
+                            timer: 1500,
+                            onClose: () => {
+                                _this.$router.replace("/login");
+                            }
                         })
-                    });
-                }
+                    }
+                })
             }
             
         }

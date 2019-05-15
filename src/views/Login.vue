@@ -97,13 +97,13 @@ const axios = require('axios');
                 this.$store.dispatch('recuperarData',{
                     jwt: response.jwt
                 }).then(response2 => {
+                    _this.$router.push({name: 'DashboardLayout'})
                     Swal.fire({
                         type: 'success',
                         title: mensaje,
                         showConfirmButton:false,                            
                         timer: 1500,  
                     })
-                    _this.$router.push({name: 'DashboardLayout'})
                 })
             })
         }
@@ -112,3 +112,73 @@ const axios = require('axios');
 </script>
 <style>
 </style>
+
+// axios({
+//     method: 'post',
+//     url: _this.model.dominio+'/controller/update_user.php',
+//     data :{
+//         jwt: jwt,
+//         username: this.model.username,
+//         firstname: this.model.firstname,
+//         lastname: this.model.lastname
+//     },
+//     headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json'
+//     }
+// }).then(function (response){
+//     if(response.data.success){
+//         Swal.fire({
+//             type: 'success',
+//             title: response.data.message,
+//             showConfirmButton:false,                            
+//             timer: 1500,  
+//         })
+//         jwt = response.data.jwt;
+//         axios({
+//             method: 'post',
+//             url: _this.model.dominio+'/model/functions/validate_token.php',
+//             data :{
+//                 jwt: response.data.jwt
+//             },
+//             headers: {
+//                 'Accept': 'application/json',
+//                 'Content-Type': 'application/json'
+//             }
+//         }).then(function (response){
+//             if(response.data.success == true){  
+//                 let data_nuevo = JSON.stringify(response.data.data);
+//                 localStorage.setItem("data",data_nuevo);
+//                 _this.model.username = response.data.data.username;
+//                 _this.model.firstname = response.data.data.firstname;
+//                 _this.model.lastname = response.data.data.lastname;
+//                 _this.model.tipo = response.data.data.tipo;
+//             }                 
+//         }).catch(function (error) {
+//             Swal.fire({
+//                 type: 'error',
+//                 title: 'Error de servidor ' + error,
+//                 showConfirmButton:false,
+//                 backdrop: 'rgba(255,255,255,1)',
+//                 timer: 1500,
+//                 onClose: () => {
+//                 _this.$router.replace("/login");
+//                 }
+//             })
+//         });         
+//     }else{
+//         Swal.fire({
+//             type: 'error',
+//             title: response.data.message,
+//             showConfirmButton:false,                            
+//             timer: 1500,  
+//         })
+//     }                    
+// }).catch(function (error) {
+//     Swal.fire({
+//         type: 'error',
+//         title: 'Error de servidor ' + error,
+//         showConfirmButton:false,
+//         timer: 1500
+//     })
+// });

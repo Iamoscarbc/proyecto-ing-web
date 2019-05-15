@@ -20,7 +20,7 @@
                   <img alt="Image placeholder" src="img/theme/team-4-800x800.jpg">
                 </span>
                         <div class="media-body ml-2 d-none d-lg-block">
-                            <span class="mb-0 text-sm  font-weight-bold" style="text-transform: capitalize;cursor:pointer;">{{firstname}} {{lastname}}</span>
+                            <span class="mb-0 text-sm  font-weight-bold" style="text-transform: capitalize;cursor:pointer;">{{nombre_Navbar}}</span>
                         </div>
                     </div>
 
@@ -61,26 +61,12 @@ const axios = require('axios');
   export default {
     data() {
       return {
-        firstname : '',
-        lastname : '',
+        firstname : this.$store.state.data.firstname || '',
+        lastname : this.$store.state.data.lastname || '',
         activeNotifications: false,
         showMenu: false,
         searchQuery: ''
       };
-    },
-    mounted(){
-      // let jwt = JSON.parse(this.$store.state.token).data.jwt;
-      // let _this = this;      
-      // let dominio = "http://35.236.27.209/php_api_jwt/api";
-      // localStorage.setItem("dominio",dominio);
-      // let data = localStorage.getItem("data");
-      // if(data){
-      //   if(this.isJson(data)){
-      //     let data_parseada = JSON.parse(data);
-      //     this.firstname = data_parseada.firstname;
-      //     this.lastname = data_parseada.lastname;
-      //   }
-      // }
     },
     methods: {
       isJson(str) {
@@ -117,8 +103,10 @@ const axios = require('axios');
                   Swal.showLoading(); 
                 },
                 onClose: () =>{
-                  localStorage.removeItem("KbGciOAiUbG1NiJ9iJIV1I");
-                  localStorage.removeItem("data");
+                  localStorage.removeItem("TKbGciOAiUbG1NiJ9iJIV1I");
+                  localStorage.removeItem("DiUbKbGciOAJ9v1NiNiV1IiJIV1I");
+                  _this.$store.commit("recuperarToken",'')
+                  _this.$store.commit("recuperarData",'')
                   _this.$router.replace("/login");
                 }
               })
@@ -133,6 +121,11 @@ const axios = require('axios');
       },
       toggleMenu() {
         this.showMenu = !this.showMenu;
+      }
+    },
+    computed:{
+      nombre_Navbar(){
+        return this.firstname + " " + this.lastname
       }
     }
   };

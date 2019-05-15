@@ -4,9 +4,9 @@
         <base-nav class="navbar-top navbar-horizontal navbar-dark"
                   containerClasses="px-4 container"
                   expand>
-            <router-link slot="brand" class="navbar-brand" to="/">
-                <img src="img/brand/white.png"/>
-            </router-link>
+                <router-link slot="brand" class="navbar-brand" to="/" >
+                    <img src="img/brand/white.png"/>
+                </router-link>
 
             <template v-slot="{closeMenu}">
                 <!-- Collapse header -->
@@ -77,8 +77,8 @@
         </div>
         <!-- Page content -->
         <div class="container mt--9 pb-5">
-            <slide-y-up-transition mode="out-in" origin="center top" :title_auth="title_auth">
-                <router-view :title_auth="title_auth"></router-view>
+            <slide-y-up-transition mode="out-in" origin="center top">
+                <router-view></router-view>
             </slide-y-up-transition>
         </div>
         <footer class="py-5">
@@ -128,12 +128,17 @@ import Swal from 'sweetalert2'
         showMenu: false,
         auth: false,
         login: true,
-        title_auth : this.$route.name
+        title_auth : this.$store.state.title_auth
       }
     },
     methods:{
         validar_titulo(param){
-            this.title_auth = this.$route.name;
+            let _this = this;
+            this.$store.dispatch("title_auth", {
+                param:param
+            }).then(response => {
+                _this.title_auth = response
+            })
         }
     },
     beforeMount(){
@@ -148,14 +153,25 @@ import Swal from 'sweetalert2'
         logueado.then((response) => {
             if(response.success == false){
                 this.$router.push({name: 'login'})
-                console.log("no entras");
                 Swal.close();
             }else{
                 this.$router.push({name: 'DashboardLayout'})
-                console.log("de vuelta al dashboard");
                 Swal.close();
+                Swal.fire({
+                    title: `Bienvenido otra vez\nEstamos preparando todo...`,
+                    backdrop: 'rgba(255,255,255,1)',
+                    timer: 1500,
+                    onBeforeOpen: () => {
+                    Swal.showLoading(); 
+                    },
+                })    
             }
         });
+    },
+    mounted(){
+        let s = document.getElementsByClassName("navbar-brand router-link-active")
+        let login = document.getElementById("login")
+        s[0].addEventListener("click", () => { login.click() })
     }
   }
 </script>

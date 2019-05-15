@@ -1,5 +1,6 @@
 <template>
     <div>
+        <dashboard-navbar></dashboard-navbar>   
         <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
             <!-- Card stats -->
             <div class="row">
@@ -150,6 +151,8 @@
   // Tables
   import SocialTrafficTable from './Dashboard/SocialTrafficTable';
   import PageVisitsTable from './Dashboard/PageVisitsTable';
+  
+  import DashboardNavbar from '../layout/DashboardNavbar.vue';
 
   export default {
     components: {
@@ -157,6 +160,7 @@
       BarChart,
       PageVisitsTable,
       SocialTrafficTable,
+      DashboardNavbar, 
     },
     data() {
       return {

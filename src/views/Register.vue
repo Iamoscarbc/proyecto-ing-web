@@ -104,41 +104,6 @@ const axios = require('axios');
         password_power: ''
       }
     },
-    beforeMount(){
-        this.$attrs.title_auth = 'Registro';
-        let token = this.$store.state.token;  
-        let _this = this;      
-        let dominio = "http://35.236.27.209/php_api_jwt/api";
-        localStorage.setItem("dominio",dominio);
-        if(token){            
-            if(token.data.jwt){
-                axios({
-                    method: 'post',
-                    url: dominio+'/model/functions/validate_token.php',
-                    data :{
-                        jwt: token
-                    },
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }).then(function (response){
-                    if(response.data.success){
-                        _this.$router.replace("/home");                    
-                    }else{
-                        _this.$router.replace("/register");
-                    }                    
-                }).catch(function (error) {
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Error de servidor ' + error,
-                        showConfirmButton:false,
-                        timer: 1500
-                    })
-                });
-            }
-        }
-    },
     methods:{
         register(firstname,lastname,username,password,confirm){
             let _this = this;
@@ -228,34 +193,26 @@ const axios = require('axios');
                 }
             }); 
             if(hacer_post == true){
-                axios({
-                    method: 'post',
-                    url: dominio+'/controller/create_user.php',
-                    data :{
-                        firstname: firstname,
-                        lastname : lastname,
-                        username: username,
-                        password: password
-                    },
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }).then(function (response){
-                    if(response.data.success){
+                this.$store.dispatch('registrar',{
+                    firstname: firstname,
+                    lastname : lastname,
+                    username: username,
+                    password: password
+                }).then(response => {
+                    if(response.success){
                         Swal.fire({
                             type: 'success',
-                            title: response.data.message,
+                            title: response.message,
                             showConfirmButton:false,                            
                             timer: 1500,  
                         })
                     }else{
                         Swal.fire({
-                            type: 'error',
-                            title: response.data.message,
+                            type: 'warning',
+                            title: response.message,
                             showConfirmButton:false
                         })
-                    }                    
+                    }   
                 }).catch(function (error) {
                     Swal.fire({
                         type: 'error',
@@ -263,6 +220,41 @@ const axios = require('axios');
                         showConfirmButton:false
                     })
                 });
+                // axios({
+                //     method: 'post',
+                //     url: dominio+'/controller/create_user.php',
+                //     data :{
+                //         firstname: firstname,
+                //         lastname : lastname,
+                //         username: username,
+                //         password: password
+                //     },
+                //     headers: {
+                //         'Accept': 'application/json',
+                //         'Content-Type': 'application/json'
+                //     }
+                // }).then(function (response){
+                //     if(response.data.success){
+                //         Swal.fire({
+                //             type: 'success',
+                //             title: response.data.message,
+                //             showConfirmButton:false,                            
+                //             timer: 1500,  
+                //         })
+                //     }else{
+                //         Swal.fire({
+                //             type: 'error',
+                //             title: response.data.message,
+                //             showConfirmButton:false
+                //         })
+                //     }                    
+                // }).catch(function (error) {
+                //     Swal.fire({
+                //         type: 'error',
+                //         title: 'Error de servidor ' + error,
+                //         showConfirmButton:false
+                //     })
+                // });
             }
         },
         goToLogin(){
