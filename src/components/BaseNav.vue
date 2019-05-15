@@ -86,7 +86,7 @@
   };
 </script>
 <style>
-  @media (max-width: 500px){
+  @media (max-width: 767.5px){
     .bg-principal-nav{
       background-color: #172b4d !important;
     }  

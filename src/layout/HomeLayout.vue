@@ -1,30 +1,28 @@
 <template>
-  <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
-    <side-bar
-      :background-color="sidebarBackground"
-      short-title="Argon"
-      title="Argon"
-    >
-      <template slot="links">
-        <sidebar-item
-          :link="{
-            name: 'Dashboard',
-            icon: 'ni ni-tv-2 text-primary',
-            path: '/dashboard',
-          }"
-        />
+    <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
+      <side-bar
+        :background-color="sidebarBackground"
+        short-title="Argon"
+        title="Argon"
+      >
+        <template slot="links">
+          <sidebar-item
+            :link="{
+              name: 'Inicio',
+              icon: 'ni ni-planet text-primary',
+              path: '/index',
+            }"
+          />
+          <sidebar-item :link="{name: 'Nosotros', icon: 'ni ni-single-02 text-yellow', path: '/aboutus'}"/>
+          <sidebar-item :link="{name: 'Login', icon: 'ni ni-key-25 text-orange', path: '/login'}"/> 
+          <sidebar-item :link="{name: 'Registro', icon: 'ni ni-circle-08 text-blue', path: '/registro'}"/>
+          <!-- <sidebar-item :link="{name: 'Tables', icon: 'ni ni-bullet-list-67 text-red', path: '/tables'}"/>  -->
 
-        <sidebar-item :link="{name: 'User Profile', icon: 'ni ni-single-02 text-yellow', path: '/profile'}"/>
-        <sidebar-item :link="{name: 'Maps', icon: 'ni ni-pin-3 text-orange', path: '/maps'}"/>
-        <sidebar-item :link="{name: 'Icons', icon: 'ni ni-planet text-blue', path: '/icons'}"/>
-        <sidebar-item :link="{name: 'Tables', icon: 'ni ni-bullet-list-67 text-red', path: '/tables'}"/>
-
-      </template>
-    </side-bar>
+        </template>
+      </side-bar>
     <div class="main-content" :data="sidebarBackground">
 
       <div @click="toggleSidebar">
-        <!-- <dashboard-navbar></dashboard-navbar> -->
         <fade-transition :duration="200" origin="center top" mode="out-in">
           <!-- your content here -->
           <router-view></router-view>
@@ -34,6 +32,7 @@
     </div>
   </div>
 </template>
+
 <script>
   import ContentFooter from './ContentFooter.vue';
   import { FadeTransition } from 'vue2-transitions';
@@ -76,10 +75,10 @@
       let logueado = this.$store.getters.logueado;
       logueado.then((response) => {
           if(response.success == false){
-              this.$router.push({name: 'login'})
+              this.$router.push({name: 'HomeLayout'})
               Swal.close();
           }else{
-              this.$router.push({name: 'DashboardLayout'})
+              this.$router.push({name: 'HomeLayout'})
               Swal.close();
               Swal.fire({
                 title: `Bienvenido otra vez\nEstamos preparando todo...`,
@@ -94,5 +93,7 @@
     }    
   };
 </script>
-<style lang="scss">
+
+<style lang="scss" scoped>
+
 </style>

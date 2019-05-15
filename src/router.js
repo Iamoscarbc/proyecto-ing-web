@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import DashboardLayout from '@/layout/DashboardLayout'
 import AuthLayout from '@/layout/AuthLayout'
+import HomeLayout from '@/layout/HomeLayout'
 Vue.use(Router)
 
 export default new Router({
@@ -9,11 +10,28 @@ export default new Router({
   routes: [
     {
       path: '*',
-      redirect: 'login',
-      name: 'login'
+      redirect: 'index'
     },
     {
-      path: '/',
+      path: '/index',
+      redirect: 'index',
+      component: HomeLayout,
+      name: 'HomeLayout',
+      children: [
+        {
+          path: '/index',
+          name: 'index',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Index.vue')
+        },
+        {
+          path: '/aboutus',
+          name: 'aboutus',
+          component: () => import(/* webpackChunkName: "demo" */ './views/AboutUs.vue')
+        }
+      ]      
+    },
+    {
+      path: '/login',
       redirect: 'login',
       component: AuthLayout,
       children: [

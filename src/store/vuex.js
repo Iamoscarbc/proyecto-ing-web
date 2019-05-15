@@ -51,7 +51,7 @@ export default new Vuex.Store({
               context.commit("recuperarToken",token)
               resolve(response.data)
             }else{
-              console.log(response.data.message)
+              resolve(response.data)
             }
           }).catch(error => {
             console.log(error)
@@ -71,7 +71,7 @@ export default new Vuex.Store({
               context.commit("recuperarData",data)
               resolve(response.data)
             }else{
-              console.log(response.data)
+              resolve(response.data)
             }
           }).catch(error => {
             console.log(error)

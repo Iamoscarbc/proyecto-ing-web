@@ -16,12 +16,12 @@
             <li class="nav-item dropdown">
                 <base-dropdown class="nav-link pr-0">
                     <div class="media align-items-center" slot="title">
-                <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="img/theme/team-4-800x800.jpg">
-                </span>
-                        <div class="media-body ml-2 d-none d-lg-block">
-                            <span class="mb-0 text-sm  font-weight-bold" style="text-transform: capitalize;cursor:pointer;">{{nombre_Navbar}}</span>
-                        </div>
+                      <span v-if="$store.state.data" class="avatar avatar-sm rounded-circle">
+                        <img alt="Image placeholder" src="img/theme/team-4-800x800.jpg">
+                      </span>
+                      <div class="media-body ml-2 d-none d-lg-block">
+                          <span class="mb-0 text-sm  font-weight-bold" style="text-transform: capitalize;cursor:pointer;">{{nombre_Navbar}}</span>
+                      </div>
                     </div>
 
                     <template>
@@ -125,7 +125,11 @@ const axios = require('axios');
     },
     computed:{
       nombre_Navbar(){
-        return this.firstname + " " + this.lastname
+        if(this.$store.state.data == null){
+          return ''
+        }else{
+          return this.firstname + " " + this.lastname;
+        }
       }
     }
   };

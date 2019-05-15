@@ -218,8 +218,7 @@ const axios = require('axios');
           country: '',
           zipCode: '',
           about: '',
-          tipo: this.$store.state.data.tipo,
-          dominio: ''
+          tipo: this.$store.state.data.tipo
         },
         boton_habilitar : false
       }

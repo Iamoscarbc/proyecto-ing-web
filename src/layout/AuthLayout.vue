@@ -30,6 +30,12 @@
                 </div>
                 <!-- Navbar items -->
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <router-link class="nav-link nav-link-icon" to="/index">
+                            <i class="ni ni-planet"></i>
+                            <span class="nav-link-inner--text">Home</span>
+                        </router-link>
+                    </li>
                     <li v-if="auth == true" class="nav-item">
                         <router-link class="nav-link nav-link-icon" to="/dashboard">
                             <i class="ni ni-planet"></i>
@@ -167,11 +173,6 @@ import Swal from 'sweetalert2'
                 })    
             }
         });
-    },
-    mounted(){
-        let s = document.getElementsByClassName("navbar-brand router-link-active")
-        let login = document.getElementById("login")
-        s[0].addEventListener("click", () => { login.click() })
     }
   }
 </script>

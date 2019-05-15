@@ -113,7 +113,6 @@ const axios = require('axios');
             let input_user = inputs[2];
             let input_pass = inputs[3];
             let input_confirm = inputs[4];
-            let dominio = localStorage.getItem("dominio");
             let result = []; 
             let terminos = document.getElementsByClassName("custom-checkbox")[0].children[0].checked;  
             let contenedor_terminos = document.getElementsByClassName("my-4")[0];
@@ -219,42 +218,7 @@ const axios = require('axios');
                         title: 'Error de servidor ' + error,
                         showConfirmButton:false
                     })
-                });
-                // axios({
-                //     method: 'post',
-                //     url: dominio+'/controller/create_user.php',
-                //     data :{
-                //         firstname: firstname,
-                //         lastname : lastname,
-                //         username: username,
-                //         password: password
-                //     },
-                //     headers: {
-                //         'Accept': 'application/json',
-                //         'Content-Type': 'application/json'
-                //     }
-                // }).then(function (response){
-                //     if(response.data.success){
-                //         Swal.fire({
-                //             type: 'success',
-                //             title: response.data.message,
-                //             showConfirmButton:false,                            
-                //             timer: 1500,  
-                //         })
-                //     }else{
-                //         Swal.fire({
-                //             type: 'error',
-                //             title: response.data.message,
-                //             showConfirmButton:false
-                //         })
-                //     }                    
-                // }).catch(function (error) {
-                //     Swal.fire({
-                //         type: 'error',
-                //         title: 'Error de servidor ' + error,
-                //         showConfirmButton:false
-                //     })
-                // });
+                });                
             }
         },
         goToLogin(){
