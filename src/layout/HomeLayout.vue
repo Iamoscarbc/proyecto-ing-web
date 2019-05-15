@@ -43,11 +43,6 @@
     components: {
       ContentFooter,
       FadeTransition
-    },
-    data() {
-      return {
-        sidebarBackground: 'vue' //vue|blue|orange|green|red|primary
-      };
     },    
     methods: {
       isJson(str) {
