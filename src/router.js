@@ -5,18 +5,22 @@ import AuthLayout from '@/layout/AuthLayout'
 import HomeLayout from '@/layout/HomeLayout'
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
+  mode: 'history',
   linkExactActiveClass: 'active',
-  routes: [
-    {
+  routes: [    
+    { 
       path: '*',
-      redirect: 'index'
+      redirect: '/index'
     },
     {
       path: '/index',
       redirect: 'index',
       component: HomeLayout,
       name: 'HomeLayout',
+      meta: { 
+        guest: true
+      },
       children: [
         {
           path: '/index',
@@ -32,8 +36,10 @@ export default new Router({
     },
     {
       path: '/login',
-      redirect: 'login',
       component: AuthLayout,
+      meta: { 
+        guest: true
+      },
       children: [
         {
           path: '/login',
@@ -52,10 +58,17 @@ export default new Router({
       redirect: 'dashboard',
       component: DashboardLayout,
       name: 'DashboardLayout',
+      meta: { 
+          requiresAuth: true
+      },
       children: [
         {
           path: '/dashboard',
           name: 'dashboard',
+          meta: { 
+              requiresAuth: true,
+              is_admin : true
+          },
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
@@ -84,4 +97,38 @@ export default new Router({
       ]
     }
   ]
+});
+
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+      if (localStorage.getItem('TKbGciOAiUbG1NiJ9iJIV1I') == null) {
+          next({
+              path: '/login',
+              params: { nextUrl: to.fullPath }
+          })
+      } else {
+          let user = JSON.parse(localStorage.getItem('DiUbKbGciOAJ9v1NiNiV1IiJIV1I'))
+          if(to.matched.some(record => record.meta.is_admin)) {
+              if(user.tipo == 1 || user.tipo == 2){
+                  next()
+              }
+              else{
+                  next({ name: 'profile'})
+              }
+          }else {
+              next()
+          }
+      }
+  } else if(to.matched.some(record => record.meta.guest)) {
+      if(localStorage.getItem('TKbGciOAiUbG1NiJ9iJIV1I') == null){
+          next()
+      }
+      else{
+          next()
+      }
+  }else {
+      next() 
+  }
 })
+
+export default router

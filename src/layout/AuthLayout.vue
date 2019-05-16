@@ -42,16 +42,16 @@
                             <span class="nav-link-inner--text">Dashboard</span>
                         </router-link>
                     </li>
-                    <li class="nav-item" @click="validar_titulo('registrar')">
-                        <router-link class="nav-link nav-link-icon" to="/registro" id="registro">
-                            <i class="ni ni-circle-08"></i>
-                            <span class="nav-link-inner--text">Registro</span>
-                        </router-link>
-                    </li>
                     <li class="nav-item" @click="validar_titulo('login')">
                         <router-link class="nav-link nav-link-icon" to="/login" id="login">
                             <i class="ni ni-key-25"></i>
                             <span class="nav-link-inner--text">Login</span>
+                        </router-link>
+                    </li>
+                    <li class="nav-item" @click="validar_titulo('registrar')">
+                        <router-link class="nav-link nav-link-icon" to="/registro" id="registro">
+                            <i class="ni ni-circle-08"></i>
+                            <span class="nav-link-inner--text">Registro</span>
                         </router-link>
                     </li>
                     <li v-if="auth == true" class="nav-item">
@@ -66,13 +66,6 @@
         <!-- Header -->
         <div class="header bg-gradient-color_principal py-7 py-lg-8">
             <div class="container">
-                <div class="header-body text-center mb-6">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-5 col-md-6">
-                            <h1 class="text-white" style="text-transform:capitalize">{{title_auth}}</h1>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="separator separator-bottom separator-skew zindex-100">
                 <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
@@ -102,8 +95,7 @@
                                 <a href="#" class="nav-link" target="_blank">Ucv Developers</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" target="_blank">About
-                                    Us</a>
+                                <router-link to="/aboutus" class="nav-link">About Us</router-link>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link" target="_blank">Blog</a>
@@ -158,7 +150,6 @@ import Swal from 'sweetalert2'
         let logueado = this.$store.getters.logueado;
         logueado.then((response) => {
             if(response.success == false){
-                this.$router.push({name: 'login'})
                 Swal.close();
             }else{
                 this.$router.push({name: 'DashboardLayout'})

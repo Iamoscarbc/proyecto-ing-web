@@ -20,7 +20,7 @@
                         <img alt="Image placeholder" src="img/theme/team-4-800x800.jpg">
                       </span>
                       <div class="media-body ml-2 d-none d-lg-block">
-                          <span class="mb-0 text-sm  font-weight-bold" style="text-transform: capitalize;cursor:pointer;">{{nombre_Navbar}}</span>
+                          <span class="mb-0 text-sm  font-weight-bold" style="text-transform: capitalize;cursor:pointer;">{{this.firstname_model}} {{this.lastname_model}}</span>
                       </div>
                     </div>
 
@@ -28,7 +28,7 @@
                         <div class=" dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Bienvenido</h6>
                         </div>
-                        <router-link to="/home" class="dropdown-item">
+                        <router-link v-if="tipo == 1 || tipo == 2" to="/home" class="dropdown-item">
                             <i class="ni ni-tv-2"></i>
                             <span>Inicio</span>
                         </router-link>
@@ -59,13 +59,16 @@
 import Swal from 'sweetalert2'
 const axios = require('axios');
   export default {
+    props:[
+      'firstname_model',
+      'lastname_model'
+    ],
     data() {
       return {
-        firstname : this.$store.state.data.firstname || '',
-        lastname : this.$store.state.data.lastname || '',
         activeNotifications: false,
         showMenu: false,
-        searchQuery: ''
+        searchQuery: '',        
+        tipo: this.$store.state.data.tipo
       };
     },
     methods: {
@@ -121,15 +124,6 @@ const axios = require('axios');
       },
       toggleMenu() {
         this.showMenu = !this.showMenu;
-      }
-    },
-    computed:{
-      nombre_Navbar(){
-        if(this.$store.state.data == null){
-          return ''
-        }else{
-          return this.firstname + " " + this.lastname;
-        }
       }
     }
   };

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <dashboard-navbar></dashboard-navbar>   
+        <dashboard-navbar :firstname_model="model.firstname" :lastname_model="model.lastname"></dashboard-navbar>   
         <base-header type="gradient-color_principal" class="pb-6 pb-8 pt-5 pt-md-8">
             <!-- Card stats -->
             <div class="row">
@@ -80,6 +80,23 @@
   import ProjectsTable from './Tables/ProjectsTable'
   export default {
     name: 'tables',
+    data() {
+      return {
+        model: {
+          username: this.$store.state.data.username,
+          email: '',
+          firstname: this.$store.state.data.firstname,
+          lastname: this.$store.state.data.lastname,
+          address: '',
+          city: '',
+          country: '',
+          zipCode: '',
+          about: '',
+          tipo: this.$store.state.data.tipo
+        },
+        boton_habilitar : false
+      }
+    },
     components: {
         DashboardNavbar,
         ProjectsTable

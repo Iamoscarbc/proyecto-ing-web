@@ -1,6 +1,6 @@
 <template>
     <div>
-        <dashboard-navbar></dashboard-navbar>    
+        <dashboard-navbar :firstname_model="model.firstname" :lastname_model="model.lastname"></dashboard-navbar>    
         <base-header class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
                      style="min-height: 500px; background-image: url(img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
             <!-- Mask -->
@@ -84,7 +84,7 @@
                                     <h3 class="mb-0">Mi Cuenta</h3>
                                 </div>
                                 <div class="col-4 text-right" v-if="boton_habilitar==false">
-                                    <a href="#!" class="btn btn-sm btn-primary" @click="habilitar_editar()">Editar Perfil</a>
+                                    <div class="btn btn-sm btn-primary" style="cursor:pointer" @click="habilitar_editar()">Editar Perfil</div>
                                 </div>
                             </div>
                         </div>
@@ -184,10 +184,10 @@
                                 <div class="pl-lg-4">
                                     <div class="row" style="justify-content:flex-end">
                                         <div class="col text-right" v-if="boton_habilitar==true">
-                                            <a href="#!" class="btn btn-sm btn-primary" @click="guardar_cambios(model)">Guardar Cambios</a>
+                                            <div class="btn btn-sm btn-primary" style="cursor:pointer" @click="guardar_cambios(model)">Guardar Cambios</div>
                                         </div>
                                         <div class="col flex-grow-1 text-right" v-if="boton_habilitar==true" style="max-width:100px">
-                                            <a href="#!" class="btn btn-sm btn-danger" @click="habilitar_editar()">Cancelar</a>
+                                            <div class="btn btn-sm btn-danger" style="cursor:pointer" @click="habilitar_editar()">Cancelar</div>
                                         </div>
                                     </div>
                                 </div>
@@ -245,7 +245,6 @@ const axios = require('axios');
             return true;
         },
         habilitar_editar(){
-            let data = localStorage.getItem("data");
             let forms = document.getElementsByClassName("form-control-alternative")
             let Arreglo_data = Array.prototype.slice.call(forms);
             if(this.boton_habilitar == false){
@@ -254,13 +253,10 @@ const axios = require('axios');
                 });
                 this.boton_habilitar = true;
             }else{
-                if(data){
-                    if(this.isJson(data)){
-                        let data_parseada = JSON.parse(data);
-                        this.model.username = data_parseada.username;
-                        this.model.firstname = data_parseada.firstname;
-                        this.model.lastname = data_parseada.lastname;
-                    }
+                if(this.$store.state.data){
+                    this.model.username = this.$store.state.data.username;
+                    this.model.firstname = this.$store.state.data.firstname;
+                    this.model.lastname = this.$store.state.data.lastname;
                 }
                 Arreglo_data.forEach(element => {
                     element.disabled = true;
@@ -271,7 +267,7 @@ const axios = require('axios');
         guardar_cambios(model){            
             let token = this.$store.state.token;
             let _this = this;            
-            let tv = document.getElementsByClassName("ni-tv-2 text-primary");
+            let maps = document.getElementsByClassName("ni ni-pin-3 text-orange");
             let single = document.getElementsByClassName("ni-single-02 text-yellow");
             if(token){
                 this.$store.dispatch('recuperarData',{
@@ -286,7 +282,7 @@ const axios = require('axios');
                         }).then(response => {      
                             _this.$store.commit("recuperarToken",response.jwt)
                             _this.$store.dispatch("recuperarData",response).then(response2 => {
-                                tv[0].click();
+                                maps[0].click();
                                 setTimeout(() => {
                                     single[0].click();                                    
                                 }, 200);

@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Header -->
-        <div class="header bg-gradient-color_principal py-7 py-lg-8">
+        <!-- <div class="header bg-gradient-color_principal py-7 py-lg-8">
             <div class="container">
                 <div class="header-body text-center mb-6">
                     <div class="row justify-content-center">
@@ -17,13 +17,19 @@
                     <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
                 </svg>
             </div>
+        </div> -->
+        <div>
+            <carouselIndex></carouselIndex>
         </div>
     </div>
 </template>
 
 <script>
+import carouselIndex from './Carousel/CarouselIndex.vue'
     export default {
-        
+        components:{
+            carouselIndex
+        }        
     }
 </script>
 

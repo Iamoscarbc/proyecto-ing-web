@@ -1,6 +1,9 @@
 <template>
     <div class="row justify-content-center">
         <div class="col-lg-5 col-md-7">
+            <div class="d-flex flex-row justify-content-center mb-3">
+                <h1 class="text-white" style="text-transform:capitalize">Login</h1>
+            </div>
             <div class="card bg-secondary shadow border-0">
                 <div class="card-header bg-transparent pb-5">
                     <div class="text-muted text-center mt-2 mb-3"><small>Loguearse con</small></div>

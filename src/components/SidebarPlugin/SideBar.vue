@@ -35,7 +35,7 @@
                         <div class=" dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Bienvenido</h6>
                         </div>
-                        <router-link to="/home" class="dropdown-item">
+                        <router-link v-if="tipo == 1 || tipo == 2" to="/home" class="dropdown-item">
                             <i class="ni ni-tv-2"></i>
                             <span>Inicio</span>
                         </router-link>
@@ -90,6 +90,11 @@ const axios = require('axios');
 
   export default {
     name: 'sidebar',
+    data(){
+      return {
+        tipo: this.$store.state.data.tipo
+      }
+    },
     components: {
       NavbarToggleButton
     },
