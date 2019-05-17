@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import jwt from 'jsonwebtoken'
 import DashboardLayout from '@/layout/DashboardLayout'
 import AuthLayout from '@/layout/AuthLayout'
 import HomeLayout from '@/layout/HomeLayout'
@@ -107,9 +108,9 @@ router.beforeEach((to, from, next) => {
               params: { nextUrl: to.fullPath }
           })
       } else {
-          let user = JSON.parse(localStorage.getItem('DiUbKbGciOAJ9v1NiNiV1IiJIV1I'))
+          let user = jwt.decode(localStorage.getItem('TKbGciOAiUbG1NiJ9iJIV1I'))
           if(to.matched.some(record => record.meta.is_admin)) {
-              if(user.tipo == 1 || user.tipo == 2){
+              if(user.data.tipo == 1 || user.data.tipo == 2){
                   next()
               }
               else{
