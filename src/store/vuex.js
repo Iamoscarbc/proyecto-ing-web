@@ -117,6 +117,24 @@ export default new Vuex.Store({
             reject(error)
           })
         })
+      },
+      recuperarUsers(context,data){
+        return new Promise((resolve,reject) => {
+          axios.post('/controller/get_users.php',{
+            jwt: data.jwt,
+          }).then(response => {
+            if(response.data.success == true){
+              let token = data.jwt
+              localStorage.setItem("TKbGciOAiUbG1NiJ9iJIV1I",token)
+              resolve(response.data)
+            }else{
+              resolve(response.data)
+            }
+          }).catch(error => {
+            console.log(error)
+            reject(error)
+          })
+        })
       }
     }
   })
