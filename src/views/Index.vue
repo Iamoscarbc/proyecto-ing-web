@@ -21,18 +21,61 @@
         <div>
             <carouselIndex></carouselIndex>
         </div>
+        <div>
+            <datepicker value="2016-02-02" format="DD/MM/YYYY" name="start"></datepicker>
+            <!-- <datepicker value="2010-02-02" name="end"></datepicker> -->
+        </div>
+        <!-- <div class="d-flex flex-row justify-content-around">
+            <datetime v-model="fechaIda"
+            :min-datetime="minDateIda"
+            input-class="Datepicker"></datetime>
+            <datetime v-model="fechaVuelta"
+            :min-datetime="minDateVuelta"></datetime>
+        </div> -->
     </div>
 </template>
 
 <script>
+import datepicker from '../components/Datepicker/Datepicker'
 import carouselIndex from './Carousel/CarouselIndex.vue'
     export default {
+        data(){
+            return{
+                fechaIda : "",
+                minDateIda: "",
+                fechaVuelta : "",
+                minDateVuelta: "",
+                picker: new Date().toISOString().substr(0, 10),
+                landscape: false,
+                reactive: false
+            }
+        },
         components:{
-            carouselIndex
-        }        
+            carouselIndex,
+            datepicker
+        },
+        beforeMount(){
+            let f = new Date();
+            let mes = ""
+            if((f.getMonth() +1) <= 9){
+                mes = "0"+(f.getMonth() +1);
+            }else{
+                mes = (f.getMonth() +1)
+            }
+            this.fechaIda = f.getFullYear()+"-"+mes+"-"+(f.getDate()+1)+"T00:00:00.000Z"
+            this.minDateIda = f.getFullYear()+"-"+mes+"-"+(f.getDate())+"T00:00:00.000Z"
+            this.fechaVuelta = f.getFullYear()+"-"+mes+"-"+(f.getDate()+1)+"T00:00:00.000Z"
+            this.minDateVuelta = f.getFullYear()+"-"+mes+"-"+(f.getDate()+1)+"T00:00:00.000Z"
+        },   
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style>
+    .Datepicker{
+        border: none;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        text-align: center;
+        border-radius: 4px;
+    }
 </style>
