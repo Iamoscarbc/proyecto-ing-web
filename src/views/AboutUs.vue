@@ -1,33 +1,77 @@
 <template>
     <div>
-        <!-- Header -->
-        <!-- <div class="header bg-gradient-color_principal py-7 py-lg-8">
-            <div class="container">
-                <div class="header-body text-center mb-6">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-5 col-md-6">
-                            <h1 class="text-white" style="text-transform:capitalize">{{title_auth}}</h1>
-                        </div>
-                    </div>
+        <div class="d-flex flex-direction: row;" style=" width:100%;height:400px;overflow:hidden;">
+            <img src="https://i.imgur.com/gVmdWYc.png" alt="" style="width:100%;height:700px;">
+        </div>
+        <div class="d-flex flex-column align-items-center">
+            <div class="d-flex flex-row justify-content-around" style="width:80%;margin-top:30px;margin-bottom:30px;">
+                <div class="card-group" style="min-width:90%;">
+                    <router-link class="card" style="cursor:pointer;" :to="`/aboutus/`+data.path" v-for="(data,i) in arreglo1" :key="i">
+                        <div class="card-body">
+                            <span class="card-title">{{data.title}}</span>
+                            <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> -->
+                            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                            </div>
+                    </router-link>
                 </div>
             </div>
-            <div class="separator separator-bottom separator-skew zindex-100">
-                <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
-                     xmlns="http://www.w3.org/2000/svg">
-                    <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-                </svg>
-            </div>
-        </div> -->
-        <h1>HOLA DESDE EL ABOUT</h1>
+        </div>
+        <slide-y-up-transition mode="out-in" origin="center top">
+            <router-view></router-view>
+        </slide-y-up-transition>
     </div>
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+  import { SlideYUpTransition } from 'vue2-transitions'
     export default {
-        
+        components: {
+        SlideYUpTransition
+        },
+        data() {
+            return {
+                arreglo1:[
+                    {
+                        title:"Reseña Histórica",
+                        path:"historia"
+                    },
+                    {
+                        title:"Nuestros Transportes",
+                        path:"transportes"
+                    },
+                    {
+                        title:"Algunos de Nuestros destinos",
+                        path:"destinos"
+                    }
+                ],
+                arreglo2:[
+                    {
+                        title:"Reseña Histórica"
+                    },
+                    {
+                        title:"Nuestros Transportes"
+                    },
+                    {
+                        title:"Algunos de Nuestros destinos"
+                    }
+                ]
+            }
+        },
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style scope>
+    .card:hover{
+        background-color: #150067;
+        color:white !important;        
+    }
+    .margin-card{
+        margin-top:30px;
+    }
+    @media (max-width:575px){
+        .margin-card{
+            margin-top:0px;
+        }
+    }
 </style>

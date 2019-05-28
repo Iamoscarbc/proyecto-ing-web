@@ -123,4 +123,8 @@ const axios = require('axios');
   }
 </script>
 <style>
+    .card{
+        max-width:100%;
+    }
+
 </style>

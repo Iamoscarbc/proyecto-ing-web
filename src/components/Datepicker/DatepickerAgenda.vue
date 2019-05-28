@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="d-flex flex-row justify-content-center">
         <transition name="datepicker-slide">
             <div class="datepicker" v-if="visible">
                 <div class="datepicker__header">

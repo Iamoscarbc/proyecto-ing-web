@@ -21,7 +21,7 @@
         <div>
             <carouselIndex></carouselIndex>
         </div>
-        <div>
+        <div style="min-height:300px;">
             <datepicker value="2016-02-02" format="DD/MM/YYYY" name="start"></datepicker>
             <!-- <datepicker value="2010-02-02" name="end"></datepicker> -->
         </div>

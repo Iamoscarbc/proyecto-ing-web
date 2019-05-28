@@ -31,7 +31,24 @@ let router = new Router({
         {
           path: '/aboutus',
           name: 'aboutus',
-          component: () => import(/* webpackChunkName: "demo" */ './views/AboutUs.vue')
+          component: () => import(/* webpackChunkName: "demo" */ './views/AboutUs.vue'),
+          children:[
+            {
+              path: '/aboutus/historia',
+              name: 'historia',
+              component: () => import(/* webpackChunkName: "demo" */ './views/Historia.vue')
+            },
+            {
+              path: '/aboutus/transportes',
+              name: 'transportes',
+              component: () => import(/* webpackChunkName: "demo" */ './views/Transportes.vue')
+            },
+            {
+              path: '/aboutus/destinos',
+              name: 'destinos',
+              component: () => import(/* webpackChunkName: "demo" */ './views/Destinos.vue')
+            }
+          ]
         }
       ]      
     },

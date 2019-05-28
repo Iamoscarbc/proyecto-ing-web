@@ -86,24 +86,24 @@
                     <div class="col-xl-6">
                         <div class="copyright text-center text-xl-left text-muted">
                             &copy; {{year}} <a href="#" class="font-weight-bold ml-1"
-                                               target="_blank">Ucv Developers</a>
+                                               target="_blank">UCV Developers</a>
                         </div>
                     </div>
                     <div class="col-xl-6">
                         <ul class="nav nav-footer justify-content-center justify-content-xl-end">
                             <li class="nav-item">
-                                <a href="#" class="nav-link" target="_blank">Ucv Developers</a>
+                                <a href="#" class="nav-link" target="_blank">UCV Developers</a>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/aboutus" class="nav-link">About Us</router-link>
+                                <router-link to="/aboutus" class="nav-link">Nosotros</router-link>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="#" class="nav-link" target="_blank">Blog</a>
-                            </li>
-                            <li class="nav-item">
+                            </li> -->
+                            <!-- <li class="nav-item">
                                 <a href="#"
                                    class="nav-link" target="_blank">MIT License</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>

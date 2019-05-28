@@ -67,7 +67,7 @@
         <div class="container-fluid mt--7">
             <div class="row">
                 <div class="col">
-                    <div class="card shadow">
+                    <div class="card shadow" style="background-color: #fff !important;">
                         <div class="card-header bg-transparent">
                             <h3 class="mb-0">Icons</h3>
                         </div>
