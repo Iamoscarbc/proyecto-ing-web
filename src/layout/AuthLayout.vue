@@ -5,7 +5,7 @@
                   containerClasses="px-4 container"
                   expand>
                 <router-link slot="brand" class="navbar-brand" to="/" >
-                    <img src="img/brand/white.png"/>
+                    <h1 style="color:#fff;margin:0;">Movil Perú</h1>
                 </router-link>
 
             <template v-slot="{closeMenu}">
@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-6 collapse-brand">
                             <router-link to="/">
-                                <img src="img/brand/green.png">
+                                <h1 style="color:#fff;margin:0;">Movil Perú</h1>
                             </router-link>
                         </div>
                         <div class="col-6 collapse-close">
@@ -85,14 +85,13 @@
                 <div class="row align-items-center justify-content-xl-between">
                     <div class="col-xl-6">
                         <div class="copyright text-center text-xl-left text-muted">
-                            &copy; {{year}} <a href="#" class="font-weight-bold ml-1"
-                                               target="_blank">UCV Developers</a>
+                            &copy; {{year}} <router-link to="/index" class="font-weight-bold ml-1">UCV Developers</router-link>
                         </div>
                     </div>
                     <div class="col-xl-6">
                         <ul class="nav nav-footer justify-content-center justify-content-xl-end">
                             <li class="nav-item">
-                                <a href="#" class="nav-link" target="_blank">UCV Developers</a>
+                                <router-link to="/index" class="nav-link">Home</router-link>
                             </li>
                             <li class="nav-item">
                                 <router-link to="/aboutus" class="nav-link">Nosotros</router-link>
@@ -113,11 +112,13 @@
 </template>
 <script>
 import Swal from 'sweetalert2'
+  import ContentFooter from './ContentFooter.vue';
   import { SlideYUpTransition } from 'vue2-transitions'
 
   export default {
     name: 'auth-layout',
-    components: {
+    components: {        
+      ContentFooter,
       SlideYUpTransition
     },
     data() {

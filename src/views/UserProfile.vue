@@ -1,6 +1,6 @@
 <template>
     <div>
-        <dashboard-navbar :firstname_model="model.firstname" :lastname_model="model.lastname"></dashboard-navbar>    
+        <dashboard-navbar :firstname_model="model.nombres" :lastname_model="model.apellidos"></dashboard-navbar>    
         <base-header class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
                      style="min-height: 500px; background-image: url(img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
             <!-- Mask -->
@@ -10,7 +10,8 @@
                 <div class="row">
                     <div class="col-lg-7 col-md-10">
                         <h1 class="display-2 text-white" style="text-transform:capitalize">Hola {{resumirnombre}}</h1>
-                        <p class="text-white mt-0">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+                        <p class="text-white mt-0">Este es tu perfil. 
+                            Aquí puedes visualizar, cambiar y actualizar tus datos personales según lo desees</p>
                         <!-- <a href="#!" class="btn btn-info">Editar perfil</a> -->
                     </div>
                 </div>
@@ -25,13 +26,13 @@
                             <div class="col-lg-3 order-lg-2">
                                 <div class="card-profile-image">
                                     <a href="#">
-                                        <img src="img/theme/team-4-800x800.jpg" class="rounded-circle">
+                                        <img :src="model.foto" class="rounded-circle">
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between" v-if="model.firstname == 'asod8uyasuhd8ayshiduags8dygiausgd'">
                                 <base-button size="sm" type="info" class="mr-4">Conectar</base-button>
                                 <base-button size="sm" type="default" class="float-right">Mensaje</base-button>
                             </div>
@@ -39,38 +40,42 @@
                         <div class="card-body pt-0 pt-md-4">
                             <div class="row">
                                 <div class="col">
-                                    <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                                        <div  v-if="model.firstname == 'asod8uyasuhd8ayshiduags8dygiausgd'">
-                                            <span class="heading">22</span>
-                                            <span class="description">Amigos</span>
-                                        </div>
-                                        <div  v-if="model.firstname == 'asod8uyasuhd8ayshiduags8dygiausgd'">
-                                            <span class="heading">10</span>
-                                            <span class="description">Fotos</span>
-                                        </div>
-                                        <div  v-if="model.firstname == 'asod8uyasuhd8ayshiduags8dygiausgd'">
-                                            <span class="heading">89</span>
-                                            <span class="description">Comentarios</span>
+                                    <div class="card-profile-stats d-flex justify-content-center mt-md-4">
+                                        <div v-if="model.firstname == 'asod8uyasuhd8ayshiduags8dygiausgd'"> 
+                                            <div>
+                                                <span class="heading">22</span>
+                                                <span class="description">Amigos</span>
+                                            </div>
+                                            <div>
+                                                <span class="heading">10</span>
+                                                <span class="description">Fotos</span>
+                                            </div>
+                                            <div>
+                                                <span class="heading">89</span>
+                                                <span class="description">Comentarios</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-center">
-                                <h3 style="text-transform:capitalize">
-                                    {{model.firstname}} {{model.lastname}}<span class="font-weight-light">, 27</span>
+                            <div class="text-center d-flex flex-column">
+                                <h3 style="text-transform:capitalize; margin-bottom:0;">
+                                    {{model.nombres}} {{model.apellidos}}<span class="font-weight-light">, {{obtenerAño}}</span>
                                 </h3>
-                                <div class="h5 font-weight-300">
-                                    <i class="ni location_pin mr-2"></i>Bucharest, Romania
+                                <div class="h5 font-weight-300" style="margin-bottom:0;">
+                                    <i class="ni location_pin mr-2"></i>{{model.city}}, {{model.country}}
                                 </div>
-                                <div class="h5 mt-4">
-                                    <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+                                <div class="h5 mt-2" style="text-transform:capitalize;margin-bottom:0;">
+                                    <i class="ni business_briefcase-24 mr-2"></i>{{model.rol}}
                                 </div>
-                                <div>
+                                <!-- <div>
                                     <i class="ni education_hat mr-2"></i>University of Computer Science
-                                </div>
-                                <hr class="my-4" />
-                                <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
-                                <a href="#">Show more</a>
+                                </div> -->
+                                <hr class="my-3" style="width: 100%;"/>
+                                    <span><strong>Género: </strong> {{model.genero}}</span>
+                                    <span><strong>Estado Civil: </strong> {{model.estadoCivil}}</span>
+                                    <span><strong>{{model.tipoDocumento}}: </strong> {{model.numDocumento}}</span>
+                                <!-- <a href="#">Show more</a> -->
                             </div>
                         </div>
                     </div>
@@ -80,31 +85,31 @@
                     <card shadow type="secondary">
                         <div slot="header" class="bg-white border-0">
                             <div class="row align-items-center">
-                                <div class="col-8">
+                                <div class="col-7">
                                     <h3 class="mb-0">Mi Cuenta</h3>
                                 </div>
-                                <div class="col-4 text-right" v-if="boton_habilitar==false">
+                                <div class="col-5 text-right" v-if="boton_habilitar==false">
                                     <div class="btn btn-sm btn-primary" style="cursor:pointer" @click="habilitar_editar()">Editar Perfil</div>
                                 </div>
                             </div>
                         </div>
                         <template>
                             <form @submit.prevent>
-                                <h6 class="heading-small text-muted mb-4">User information</h6>
+                                <h6 class="heading-small text-muted mb-4">Información Personal</h6>
                                 <div class="pl-lg-4">
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <base-input alternative=""
-                                                        label="Username"
-                                                        placeholder="Username"
+                                                        label="Nombre de Usuario"
+                                                        placeholder="Nombre de Usuario"
                                                         input-classes="form-control-alternative"
                                                         v-model="model.username"
                                             />
                                         </div>
                                         <div class="col-lg-6">
                                             <base-input alternative=""
-                                                        label="Email address"
-                                                        placeholder="jesse@example.com"
+                                                        label="Correo Electrónico"
+                                                        placeholder="Correo Electrónico"
                                                         input-classes="form-control-alternative"
                                                         v-model="model.email"
                                             />
@@ -113,74 +118,74 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <base-input alternative=""
-                                                        label="First name"
-                                                        placeholder="First name"
+                                                        label="Nombres"
+                                                        placeholder="Nombres"
                                                         input-classes="form-control-alternative"
-                                                        v-model="model.firstname"
+                                                        v-model="model.nombres"
                                             />
                                         </div>
                                         <div class="col-lg-6">
                                             <base-input alternative=""
-                                                        label="Last name"
-                                                        placeholder="Last name"
+                                                        label="Apellidos"
+                                                        placeholder="Apellidos"
                                                         input-classes="form-control-alternative"
-                                                        v-model="model.lastname"
+                                                        v-model="model.apellidos"
                                             />
                                         </div>
                                     </div>
                                 </div>
                                 <hr class="my-4" />
                                 <!-- Address -->
-                                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                                <h6 class="heading-small text-muted mb-4">Información de Contacto</h6>
                                 <div class="pl-lg-4">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <base-input alternative=""
-                                                        label="Address"
-                                                        placeholder="Home Address"
+                                                        label="Dirección"
+                                                        placeholder="Dirección"
                                                         input-classes="form-control-alternative"
-                                                        v-model="model.address"
+                                                        v-model="model.direccion"
                                             />
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <base-input alternative=""
-                                                        label="City"
-                                                        placeholder="City"
+                                                        label="Ciudad"
+                                                        placeholder="Ciudad"
                                                         input-classes="form-control-alternative"
                                                         v-model="model.city"
                                             />
                                         </div>
                                         <div class="col-lg-4">
                                             <base-input alternative=""
-                                                        label="Country"
-                                                        placeholder="Country"
+                                                        label="País"
+                                                        placeholder="País"
                                                         input-classes="form-control-alternative"
                                                         v-model="model.country"
                                             />
                                         </div>
                                         <div class="col-lg-4">
                                             <base-input alternative=""
-                                                        label="Postal code"
-                                                        placeholder="Postal code"
+                                                        label="Telefono"
+                                                        placeholder="Telefono"
                                                         input-classes="form-control-alternative"
-                                                        v-model="model.zipCode"
+                                                        v-model="model.telefono"
                                             />
                                         </div>
                                     </div>
                                 </div>
-                                <hr class="my-4" />
+                                <!-- <hr class="my-4" /> -->
                                 <!-- Description -->
-                                <h6 class="heading-small text-muted mb-4">About me</h6>
-                                <div class="pl-lg-4">
+                                <!-- <h6 class="heading-small text-muted mb-4">About me</h6> -->
+                                <!-- <div class="pl-lg-4">
                                     <div class="form-group">
                                         <base-input alternative=""
                                                     label="About Me">
                                             <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
                                         </base-input>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="pl-lg-4">
                                     <div class="row" style="justify-content:flex-end">
                                         <div class="col text-right" v-if="boton_habilitar==true">
@@ -210,15 +215,24 @@ const axios = require('axios');
       return {
         model: {
           username: this.$store.state.data.username,
-          email: '',
-          firstname: this.$store.state.data.firstname,
-          lastname: this.$store.state.data.lastname,
-          address: '',
-          city: '',
-          country: '',
+          email: this.$store.state.data.correoElectronico,
+          nombres: this.$store.state.data.nombres,
+          apellidos: this.$store.state.data.apellidos,
+          direccion: this.$store.state.data.direccion,
+          city: "Lima",
+          country: "Perú",
+          estadoCivil: this.$store.state.data.estadoCivil,
           zipCode: '',
           about: '',
-          tipo: this.$store.state.data.tipo
+          tipo: this.$store.state.data.idRol,
+          rol: this.$store.state.data.rol,
+          fecNac: this.$store.state.data.fecNac,
+          genero: this.$store.state.data.genero,
+          estadoCivil: this.$store.state.data.estadoCivil,
+          tipoDocumento: this.$store.state.data.tipoDocumento,
+          numDocumento: this.$store.state.data.numDocumento,
+          foto: this.$store.state.data.imagen,
+          telefono: this.$store.state.data.telefono
         },
         boton_habilitar : false
       }
@@ -255,8 +269,8 @@ const axios = require('axios');
             }else{
                 if(this.$store.state.data){
                     this.model.username = this.$store.state.data.username;
-                    this.model.firstname = this.$store.state.data.firstname;
-                    this.model.lastname = this.$store.state.data.lastname;
+                    this.model.nombres = this.$store.state.data.nombres;
+                    this.model.apellidos = this.$store.state.data.apellidos;
                 }
                 Arreglo_data.forEach(element => {
                     element.disabled = true;
@@ -277,8 +291,8 @@ const axios = require('axios');
                         _this.$store.dispatch("actualizarPerfil",{
                             jwt: token,
                             username: this.model.username,
-                            firstname: this.model.firstname,
-                            lastname: this.model.lastname                        
+                            nombres: this.model.nombres,
+                            apellidos: this.model.apellidos                        
                         }).then(response => {      
                             _this.$store.commit("recuperarToken",response.jwt)
                             _this.$store.dispatch("recuperarData",response).then(response2 => {
@@ -307,9 +321,15 @@ const axios = require('axios');
     },
     computed:{
         resumirnombre: function () {  
-            let nombre  = this.model.firstname.split(' ');  
+            let nombre  = this.model.nombres.split(' ');  
             return nombre[0]
         },
+        obtenerAño: function () {
+            let fecha = this.model.fecNac.split("-");
+            let date = new Date();
+            let year = date.getFullYear();
+            return year-fecha[0]
+        }
     }
   };
 </script>

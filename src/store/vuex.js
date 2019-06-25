@@ -5,7 +5,8 @@ import jwt from 'jsonwebtoken'
 // import DashboardLayout from '@/layout/DashboardLayout'
 // import AuthLayout from '@/layout/AuthLayout'
 Vue.use(Vuex)
-axios.defaults.baseURL = 'http://35.236.27.209/php_api_jwt/api'
+// axios.defaults.baseURL = 'http://35.236.27.209/php_api_jwt/api'
+axios.defaults.baseURL = 'http://35.236.27.209/movilPeru/api'
 
 export default new Vuex.Store({
     state: {
@@ -130,6 +131,49 @@ export default new Vuex.Store({
             }else{
               resolve(response.data)
             }
+          }).catch(error => {
+            console.log(error)
+            reject(error)
+          })
+        })
+      },
+      recuperarOrigen(){
+        return new Promise((resolve,reject) => {
+          axios.post('/controller/get_origenes.php').then(response => {
+            if(response.data.success == true){
+              resolve(response.data)
+            }else{
+              resolve(response.data)
+            }
+          }).catch(error => {
+            console.log(error)
+            reject(error)
+          })
+        })
+      },
+      recuperarDestino(){
+        return new Promise((resolve,reject) => {
+          axios.post('/controller/get_destinos.php').then(response => {
+            if(response.data.success == true){
+              resolve(response.data)
+            }else{
+              resolve(response.data)
+            }
+          }).catch(error => {
+            console.log(error)
+            reject(error)
+          })
+        })
+      },
+      get_viajes(context,data){
+        return new Promise((resolve,reject) => {
+          axios.post('/controller/get_viajes.php',{
+            idOrigen: data.idOrigen,
+            idDestino: data.idDestino,
+            cantPasajeros: data.cantPasajeros,
+            fechaSalida: data.fechaSalida,
+          }).then(response => {
+            resolve(response.data)
           }).catch(error => {
             console.log(error)
             reject(error)

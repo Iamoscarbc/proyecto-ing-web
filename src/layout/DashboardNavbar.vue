@@ -32,6 +32,10 @@
                             <i class="ni ni-tv-2"></i>
                             <span>Inicio</span>
                         </router-link>
+                        <router-link to="/index" class="dropdown-item">
+                            <i class="ni ni-world-2"></i>
+                            <span>Inicio</span>
+                        </router-link>
                         <router-link to="/profile" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
                             <span>Mi Perfil</span>

@@ -8,11 +8,11 @@
                 <div class="card-header bg-transparent pb-5">
                     <div class="text-muted text-center mt-2 mb-3"><small>Loguearse con</small></div>
                     <div class="btn-wrapper text-center">
-                        <a href="#" class="btn btn-neutral btn-icon">
+                        <a href="#" class="btn btn-neutral btn-icon disabled">
                             <span class="btn-inner--icon"><img src="img/icons/common/github.svg"></span>
                             <span class="btn-inner--text">Github</span>
                         </a>
-                        <a href="#" class="btn btn-neutral btn-icon">
+                        <a href="#" class="btn btn-neutral btn-icon disabled">
                             <span class="btn-inner--icon"><img src="img/icons/common/google.svg"></span>
                             <span class="btn-inner--text">Google</span>
                         </a>
@@ -20,9 +20,9 @@
                 </div>
                 <div class="card-body px-lg-5 py-lg-5">
                     <div class="text-center text-muted mb-4">
-                        <small>O Loguearse con sus credenciales</small>
+                        <small>o Loguearse con sus credenciales</small>
                     </div>
-                    <form role="form">
+                    <form role="form" @submit="login(model.username,model.password,$event)">
                         <base-input class="input-group-alternative mb-3"
                                     placeholder="Username"
                                     type="text"
@@ -42,7 +42,7 @@
                         </base-checkbox>
 
                         <div class="text-center">
-                            <base-button type="primary" class="my-4" @click="login(model.username,model.password)">Ingresar</base-button>
+                            <input type="submit" class="btn btn-danger my-4" value="Ingresar">
                         </div>
                     </form>
                 </div>
@@ -90,7 +90,8 @@ const axios = require('axios');
             }
             return true;
         },
-        login(username, password){
+        login(username, password,event){
+            event.preventDefault()
             let _this = this;
             this.$store.dispatch('recuperarToken',{
                 username: username,

@@ -6,7 +6,7 @@
       title="Argon"
     >
       <template slot="links">
-        <sidebar-item v-if="this.$store.state.data.tipo == 1 || this.$store.state.data.tipo == 2"
+        <sidebar-item v-if="this.$store.state.data.idRol == 1 || this.$store.state.data.idRol == 2"
           :link="{
             name: 'Dashboard',
             icon: 'ni ni-tv-2 text-primary',
@@ -16,8 +16,8 @@
 
         <sidebar-item :link="{name: 'User Profile', icon: 'ni ni-single-02 text-yellow', path: '/profile'}"/>
         <sidebar-item :link="{name: 'Maps', icon: 'ni ni-pin-3 text-orange', path: '/maps'}"/>
-        <sidebar-item v-if="this.$store.state.data.tipo == 1 || this.$store.state.data.tipo == 2" :link="{name: 'Icons', icon: 'ni ni-planet text-blue', path: '/icons'}"/>
-        <sidebar-item v-if="this.$store.state.data.tipo == 1 || this.$store.state.data.tipo == 2" :link="{name: 'Tables', icon: 'ni ni-bullet-list-67 text-red', path: '/tables'}"/>
+        <sidebar-item v-if="this.$store.state.data.idRol == 1 || this.$store.state.data.idRol == 2" :link="{name: 'Icons', icon: 'ni ni-planet text-blue', path: '/icons'}"/>
+        <sidebar-item v-if="this.$store.state.data.idRol == 1 || this.$store.state.data.idRol == 2" :link="{name: 'Tables', icon: 'ni ni-bullet-list-67 text-red', path: '/tables'}"/>
 
       </template>
     </side-bar>

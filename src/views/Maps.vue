@@ -1,6 +1,6 @@
 <template>
     <div>
-        <dashboard-navbar :firstname_model="model.firstname" :lastname_model="model.lastname"></dashboard-navbar>   
+        <dashboard-navbar :firstname_model="model.nombres" :lastname_model="model.apellidos"></dashboard-navbar>   
         <base-header type="gradient-color_principal" class="pb-6 pb-8 pt-5 pt-md-8">
             <!-- Card stats -->
             <div class="row">
@@ -83,8 +83,8 @@ import DashboardNavbar from '../layout/DashboardNavbar.vue';
         model: {
           username: this.$store.state.data.username,
           email: '',
-          firstname: this.$store.state.data.firstname,
-          lastname: this.$store.state.data.lastname,
+          nombres: this.$store.state.data.nombres,
+          apellidos: this.$store.state.data.apellidos,
           address: '',
           city: '',
           country: '',

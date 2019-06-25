@@ -1,9 +1,9 @@
 <template>
     <div>
-        <dashboard-navbar :firstname_model="model.firstname" :lastname_model="model.lastname"></dashboard-navbar>   
+        <dashboard-navbar :firstname_model="model.nombres" :lastname_model="model.apellidos"></dashboard-navbar>   
         <base-header type="gradient-color_principal" class="pb-6 pb-8 pt-5 pt-md-8">
             <!-- Card stats -->
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-xl-3 col-lg-6">
                     <stats-card title="Total traffic"
                                 type="gradient-red"
@@ -57,10 +57,10 @@
                         </template>
                     </stats-card>
                 </div>
-            </div>
+            </div> -->
         </base-header>
 
-        <div class="container-fluid mt--7">
+        <div class="container-fluid mt--9">
             <!-- <div class="row">
                 <div class="col">
                     <projects-table title="Light Table"></projects-table>
@@ -91,8 +91,8 @@
         model: {
           username: this.$store.state.data.username,
           email: '',
-          firstname: this.$store.state.data.firstname,
-          lastname: this.$store.state.data.lastname,
+          nombres: this.$store.state.data.nombres,
+          apellidos: this.$store.state.data.apellidos,
           address: '',
           city: '',
           country: '',

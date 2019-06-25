@@ -7,7 +7,7 @@
                 <span class="navbar-toggler-icon"></span>
             </navbar-toggle-button>
             <router-link class="navbar-brand" to="/">
-                <img :src="logo" class="navbar-brand-img" alt="...">
+              <h1 style="color:#fff;margin:0;">Movil Perú</h1>
             </router-link>
 
             <slot name="mobile-right">
@@ -35,8 +35,8 @@
                         <div class=" dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Bienvenido</h6>
                         </div>
-                        <router-link v-if="tipo == 1 || tipo == 2" to="/home" class="dropdown-item">
-                            <i class="ni ni-tv-2"></i>
+                        <router-link to="/index" class="dropdown-item">
+                            <i class="ni ni-world-2"></i>
                             <span>Inicio</span>
                         </router-link>
                         <router-link to="/profile" class="dropdown-item">
@@ -66,7 +66,7 @@
                     <div class="row">
                         <div class="col-6 collapse-brand">
                             <router-link to="/">
-                                <img :src="logo">
+                                <h1 style="color:#fff;margin:0;">Movil Perú</h1>
                             </router-link>
                         </div>
                         <div class="col-6 collapse-close">
@@ -92,7 +92,7 @@ const axios = require('axios');
     name: 'sidebar',
     data(){
       return {
-        tipo: this.$store.state.data.tipo
+        tipo: this.$store.state.data.idRol
       }
     },
     components: {

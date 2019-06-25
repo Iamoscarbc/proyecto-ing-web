@@ -6,8 +6,8 @@
                 @ok="guardarForm" ok-only okTitle="Guardar">
                 <div class="d-flex flex-column">
                     <!-- <label>{{buscar_User.id}}</label> -->
-                    <label style="text-transform:capitalize">Nombres: {{buscar_User.firstname}}</label>
-                    <label style="text-transform:capitalize">Apellidos: {{buscar_User.lastname}}</label>
+                    <label style="text-transform:capitalize">Nombres: {{buscar_User.nombres}}</label>
+                    <label style="text-transform:capitalize">Apellidos: {{buscar_User.apellidos}}</label>
                     <div class="d-flex flex-row justify-content-around align-items-center" style="width: 60%;">
                         <label for="tipo" style="flex-grow:1;margin:0">Tipo: </label>
                         <select name="tipo" id="tipo" style="flex-grow:2;margin-right:5px;">

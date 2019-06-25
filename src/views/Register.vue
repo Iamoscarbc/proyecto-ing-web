@@ -5,16 +5,16 @@
                 <h1 class="text-white" style="text-transform:capitalize">Registrar</h1>
             </div>
             <div class="card bg-secondary shadow border-0">
-                <div class="card-header bg-transparent pb-5">
+                <div class="card-header bg-transparent pb-4">
                     <div class="text-muted text-center mt-2 mb-3">
                         <small>Registrarse con</small>
                     </div>
                     <div class="btn-wrapper text-center">
-                        <a href="#" class="btn btn-neutral btn-icon">
+                        <a href="#" class="btn btn-neutral btn-icon disabled">
                             <span class="btn-inner--icon"><img src="img/icons/common/github.svg"></span>
                             <span class="btn-inner--text">Github</span>
                         </a>
-                        <a href="#" class="btn btn-neutral btn-icon">
+                        <a href="#" class="btn btn-neutral btn-icon disabled">
                             <span class="btn-inner--icon"><img src="img/icons/common/google.svg"></span>
                             <span class="btn-inner--text">Google</span>
                         </a>
@@ -24,39 +24,45 @@
                     <div class="text-center text-muted mb-4">
                         <small>O Registrarse con Credenciales</small>
                     </div>
-                    <form role="form">
+                    <form role="form" @submit="register(model.firstname,model.lastname,model.username,model.password,model.confirmpassword, $event)">
 
-                        <base-input class="input-group-alternative mb-3"
-                                    placeholder="Nombres"
-                                    addon-left-icon="ni ni-hat-3"
-                                    v-model="model.firstname">
-                        </base-input>
+                        <div class="d-flex flex-column">
+                            <h2>Datos de la Cuenta</h2>
+                            <base-input class="input-group-alternative mb-3"
+                                        placeholder="Nombre de Usuario"
+                                        addon-left-icon="ni ni-email-83"
+                                        v-model="model.username">
+                            </base-input>
 
-                        <base-input class="input-group-alternative mb-3"
-                                    placeholder="Apellidos"
-                                    addon-left-icon="ni ni-hat-3"
-                                    v-model="model.lastname">
-                        </base-input>
+                            <base-input class="input-group-alternative mb-3"
+                                        placeholder="Contraseña"
+                                        type="password"
+                                        addon-left-icon="ni ni-lock-circle-open"
+                                        v-model="model.password">
+                            </base-input>
 
-                        <base-input class="input-group-alternative mb-3"
-                                    placeholder="Nombre de Usuario"
-                                    addon-left-icon="ni ni-email-83"
-                                    v-model="model.username">
-                        </base-input>
+                            <base-input class="input-group-alternative mb-3"
+                                        placeholder="Confirmar contraseña"
+                                        type="password"
+                                        addon-left-icon="ni ni-lock-circle-open"
+                                        v-model="model.confirmpassword">
+                            </base-input>
+                            
+                        </div>
+                        <div class="d-flex flex-column mt-3"> 
+                            <h2>Datos Personales</h2>                               
+                            <base-input class="input-group-alternative mb-3"
+                                        placeholder="Nombres"
+                                        addon-left-icon="ni ni-hat-3"
+                                        v-model="model.firstname">
+                            </base-input>
 
-                        <base-input class="input-group-alternative"
-                                    placeholder="Contraseña"
-                                    type="password"
-                                    addon-left-icon="ni ni-lock-circle-open"
-                                    v-model="model.password">
-                        </base-input>
-
-                        <base-input class="input-group-alternative"
-                                    placeholder="Confirmar contraseña"
-                                    type="password"
-                                    addon-left-icon="ni ni-lock-circle-open"
-                                    v-model="model.confirmpassword">
-                        </base-input>
+                            <base-input class="input-group-alternative mb-3"
+                                        placeholder="Apellidos"
+                                        addon-left-icon="ni ni-hat-3"
+                                        v-model="model.lastname">
+                            </base-input>
+                        </div>
 
                         <div class="text-muted font-italic" v-if="password_power">
                             <small>Fuerza de Contraseña: <span class="text-success font-weight-700">{{password_power}}</span></small>
@@ -70,7 +76,7 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <base-button type="primary" class="my-4" @click="register(model.firstname,model.lastname,model.username,model.password,model.confirmpassword)">Crear Cuenta</base-button>
+                            <input type="submit" class="btn btn-danger my-4" value="Registrarse">
                         </div>
                     </form>
                 </div>
@@ -108,7 +114,8 @@ const axios = require('axios');
       }
     },
     methods:{
-        register(firstname,lastname,username,password,confirm){
+        register(firstname,lastname,username,password,confirm,event){
+            event.preventDefault();
             let _this = this;
             let inputs = document.getElementsByClassName("form-group");
             let input_first = inputs[0];

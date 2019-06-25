@@ -127,7 +127,7 @@ router.beforeEach((to, from, next) => {
       } else {
           let user = jwt.decode(localStorage.getItem('TKbGciOAiUbG1NiJ9iJIV1I'))
           if(to.matched.some(record => record.meta.is_admin)) {
-              if(user.data.tipo == 1 || user.data.tipo == 2){
+              if(user.data.idRol == 1 || user.data.idRol == 2){
                   next()
               }
               else{

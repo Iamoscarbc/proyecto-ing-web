@@ -6,7 +6,7 @@
                   containerClasses="px-4 container"
                   expand>
                 <router-link slot="brand" class="navbar-brand" to="/" >
-                    <img src="img/brand/white.png"/>
+                    <h1 style="color:#fff;margin:0;">Movil Perú</h1>
                 </router-link>
 
             <template v-slot="{closeMenu}">
@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-6 collapse-brand">
                             <router-link to="/">
-                                <img src="img/brand/green.png">
+                                <h1 style="color:#fff;margin:0;">Movil Perú</h1>
                             </router-link>
                         </div>
                         <div class="col-6 collapse-close">
@@ -43,19 +43,19 @@
                             <span class="nav-link-inner--text">Nosotros</span>
                         </router-link>
                     </li>
-                    <li v-if="auth == true" class="nav-item">
+                    <!-- <li v-if="auth == true" class="nav-item">
                         <router-link class="nav-link nav-link-icon" to="/dashboard">
                             <i class="ni ni-planet"></i>
                             <span class="nav-link-inner--text">Dashboard</span>
                         </router-link>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <li v-if="auth == false" class="nav-item">
                         <router-link class="nav-link nav-link-icon" to="/login" id="login">
                             <i class="ni ni-key-25"></i>
                             <span class="nav-link-inner--text">Login</span>
                         </router-link>
                     </li>
-                    <li class="nav-item">
+                    <li v-if="auth == false" class="nav-item">
                         <router-link class="nav-link nav-link-icon" to="/registro" id="registro">
                             <i class="ni ni-circle-08"></i>
                             <span class="nav-link-inner--text">Registro</span>
@@ -64,15 +64,15 @@
                     <li v-if="auth == true" class="nav-item">
                         <router-link class="nav-link nav-link-icon" to="/profile">
                             <i class="ni ni-single-02"></i>
-                            <span class="nav-link-inner--text">Profile</span>
+                            <span class="nav-link-inner--text">{{nombres}} {{apellidos}}</span>
                         </router-link>
                     </li>
                 </ul>
             </template>
         </base-nav>
         <!-- Header -->
-        <div class="header bg-gradient-color_principal py-7">
-            <div class="header-body text-center mb-6">
+        <div class="header bg-gradient-color_principal py-7 pb-9">
+            <div class="header-body text-center" style="margin-bottom:40rem;">
                 <div class="d-flex flex-row justify-content-center">                      
                     <div class="main-content pb-5" style="width:100%;">
                       <fade-transition :duration="200" origin="center top" mode="out-in">
@@ -94,14 +94,13 @@
                 <div class="row align-items-center justify-content-xl-between">
                     <div class="col-xl-6">
                         <div class="copyright text-center text-xl-left text-muted">
-                            &copy; {{year}} <a href="#" class="font-weight-bold ml-1"
-                                               target="_blank">UCV Developers</a>
+                            &copy; {{year}} <router-link to="/index" class="font-weight-bold ml-1">UCV Developers</router-link>
                         </div>
                     </div>
                     <div class="col-xl-6">
                         <ul class="nav nav-footer justify-content-center justify-content-xl-end">
                             <li class="nav-item">
-                                <a href="#" class="nav-link" target="_blank">UCV Developers</a>
+                                <router-link to="/index" class="nav-link">Home</router-link>
                             </li>
                             <li class="nav-item"> 
                               <router-link to="/aboutus" class="nav-link">Nosotros</router-link>
@@ -149,6 +148,8 @@
         showMenu: false,
         auth: false,
         login: true,
+        nombres : "",
+        apellidos : ""
       }
     },  
     methods: {
@@ -167,6 +168,7 @@
       }
     },
     beforeMount(){
+        let _this = this;
       Swal.fire({
         title: 'Cargando...',
         backdrop: 'rgba(255,255,255,1)',
@@ -182,6 +184,9 @@
           }else{
               this.$router.push({name: 'HomeLayout'})
               Swal.close();
+              _this.auth = true;
+              _this.nombres = response.data.nombres;
+              _this.apellidos = response.data.apellidos;
               Swal.fire({
                 title: `Bienvenido otra vez\nEstamos preparando todo...`,
                 backdrop: 'rgba(255,255,255,1)',

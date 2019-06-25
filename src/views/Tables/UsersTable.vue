@@ -34,7 +34,7 @@
             <th scope="row">
                 <div class="media align-items-center">
                     <a href="#" class="avatar rounded-circle mr-3">
-                        <img v-if="row.img" alt="Image placeholder" :src="row.img">
+                        <img v-if="row.imagen" alt="Image placeholder" :src="row.imagen">
                         <img v-else alt="Image placeholder" src="img/brand/man.png">
                     </a>
                     <div class="media-body">
@@ -50,18 +50,18 @@
             </td>
             <td>
                 <badge class="badge-dot mr-4" :type="`bg-success`">
-                    <span class="status" style="text-transform:capitalize">{{row.firstname}}</span>
+                    <span class="status" style="text-transform:capitalize">{{row.nombres}}</span>
                 </badge>
             </td>
             <td>
                 <badge class="badge-dot mr-4" :type="`bg-success`">
-                    <span class="status" style="text-transform:capitalize">{{row.lastname}}</span>
+                    <span class="status" style="text-transform:capitalize">{{row.apellidos}}</span>
                 </badge>
             </td>
             <td>
                 <badge class="badge-dot mr-4" :type="`bg-success`">
-                    <span class="status" v-if="row.tipo == 1">Master</span>
-                    <span class="status" v-else-if="row.tipo == 2">Administrador</span>
+                    <span class="status" v-if="row.idRol == 1">Master</span>
+                    <span class="status" v-else-if="row.idRol == 2">Administrador</span>
                     <span class="status" v-else>Cliente</span>
                 </badge>
             </td>

@@ -32,7 +32,7 @@
                     :class="[
                      {'is-valid': valid === true},
                      {'is-invalid': valid === false}, inputClasses]"
-                    aria-describedby="addon-right addon-left">
+                    aria-describedby="addon-right addon-left" required>
         </slot>
         <div v-if="addonRightIcon || $slots.addonRight" class="input-group-append">
           <span class="input-group-text">
