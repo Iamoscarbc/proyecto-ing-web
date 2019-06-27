@@ -187,6 +187,37 @@ export default new Vuex.Store({
             reject(error)
           })
         })
+      },
+      generar_reserva(context,data){
+        return new Promise((resolve,reject) => {
+          axios.post('/controller/register_venta.php',JSON.stringify({
+            idViajeIda: data.idViajeIda,
+            idViajeVuelta: data.idViajeVuelta,
+            cantAdultos: data.cantAdultos,
+            cantNinos: data.cantNinos,
+            cantBebes: data.cantBebes,
+            passangersData: data.passangersData,
+            jwt : context.state.token
+          })).then(response => {
+            resolve(response.data)
+          }).catch(error => {
+            console.log(error)
+            reject(error)
+          })
+        })
+      },
+      sendEmail(context,data){
+        return new Promise((resolve,reject) => {
+          axios.post('/controller/send_email.php',JSON.stringify({
+            ticket: data.ticket,
+            destinatario: data.destinatario,
+          })).then(response => {
+            resolve(response.data)
+          }).catch(error => {
+            console.log(error)
+            reject(error)
+          })
+        })
       }
     }
   })
