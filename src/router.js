@@ -26,7 +26,14 @@ let router = new Router({
         {
           path: '/index',
           name: 'index',
-          component: () => import(/* webpackChunkName: "demo" */ './views/Index.vue')
+          component: () => import(/* webpackChunkName: "demo" */ './views/Index.vue'),
+          children:[
+            {
+              path: '/index/reserva',
+              name: 'reserva',
+              component: () => import(/* webpackChunkName: "demo" */ './views/Reserva.vue')
+            }
+          ]
         },
         {
           path: '/aboutus',

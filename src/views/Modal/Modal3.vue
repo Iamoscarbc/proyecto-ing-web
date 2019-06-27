@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <b-modal id="modal-viajes" ref="my-modal" scrollable 
+            <b-modal id="modal-soloida" ref="my-modal" scrollable 
                 :title="`Viajes Disponibles`" size="lg" hide-footer okTitle="Guardar">
                 <div class="d-flex flex-column" v-if="arregloIda.length != 0">
                     <div class="d-flex flex-column align-items-start" v-if="arregloIda.length != 0" style="width:100%;">
@@ -10,7 +10,7 @@
                         style="border: solid 1px #32325d; margin-bottom:1rem;width:100%;">
                             <div class="d-flex flex-row justify-content-between mt-1" style="width:100%;">
                                 <h4 class="text-default">Opción {{index+1}}</h4>
-                                <h4 class="boton-detalle-viajes" @click="mostrarDetalle(viaje.idViaje,arregloVuelta[index].idViaje)">Clic aquí para Reservar</h4>
+                                <h4 class="boton-detalle-viajes" @click="mostrarDetalle(viaje.idViaje)">Clic aquí para Reservar</h4>
                             </div>
                             <span class="text-danger" style="font-weight: bold">Detalle del viaje de Ida</span>
                             <div class="d-flex flex-row justify-content-between p-2" style="width:100%">
@@ -31,29 +31,10 @@
                                     <span class="text-default">{{viaje.precio}}</span>
                                 </div>
                             </div>
-                            <span class="text-danger" style="font-weight: bold">Detalle del viaje de Vuelta</span>
-                            <div class="d-flex flex-row justify-content-between p-2" style="width:100%">
-                                <div class="d-flex flex-column">
-                                    <span class="text-danger">Hora Salida:</span>
-                                    <span class="text-default">{{arregloVuelta[index].horaSalida}}</span>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <span class="text-danger">Lugar de Origen:</span>
-                                    <span class="text-default">{{arregloVuelta[index].Origen}}</span>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <span class="text-danger">Lugar de Destino:</span>
-                                    <span class="text-default">{{arregloVuelta[index].Destino}}</span>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <span class="text-danger">Precio</span>
-                                    <span class="text-default">{{arregloVuelta[index].precio}}</span>
-                                </div>
-                            </div>
-                            <div class="flex-row justify-content-center mb-3" style="display:none;width:100%;" :id="`viajenro`+viaje.idViaje+`-`+arregloVuelta[index].idViaje">
+                            <div class="flex-row justify-content-center mb-3" style="display:none;width:100%;" :id="`viajenro`+viaje.idViaje">
                                 <div class="d-flex flex-column pt-3">
                                     <span class="text-danger">¿Realmente Desea Reservar el Viaje?</span>
-                                    <button class="btn btn-danger mt-2" @click="cambiarIdViajes(viaje,arregloVuelta[index],$event)">Reservar</button>
+                                    <button class="btn btn-danger mt-2" @click="cambiarIdViajes(viaje,$event)">Reservar</button>
                                     <!-- <pre>{{viaje.idViaje}} + {{arregloVuelta[index].idViaje}}</pre> -->
                                 </div>
                             </div>
@@ -103,21 +84,20 @@
                 let tipo = opcion.value;
                 console.log(tipo);
             },
-            mostrarDetalle(id,id2){
-                this.arregloIda.forEach((element,index) => {
-                    document.getElementById("viajenro"+element.idViaje+"-"+this.arregloVuelta[index].idViaje).style.display = "none";
+            mostrarDetalle(id){
+                this.arregloIda.forEach(element => {
+                    document.getElementById("viajenro"+element.idViaje).style.display = "none";
                 });
-                let detalle = document.getElementById("viajenro"+id+"-"+id2);
+                let detalle = document.getElementById("viajenro"+id);
                 if(detalle.style.display == "none"){
                     detalle.style.display = "flex";
                 }else{
                     detalle.style.display = "none";
                 }
             },
-            cambiarIdViajes(Ida, Vuelta,event){
+            cambiarIdViajes(Ida,event){
                 this.viajesElegidos = [];
                 this.viajesElegidos.push(Ida);
-                this.viajesElegidos.push(Vuelta);
                 this.$emit('cambiarIdViajes',this.viajesElegidos)
                 this.$refs['my-modal'].hide()
                 this.$router.push({name: 'reserva'})

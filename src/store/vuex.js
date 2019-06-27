@@ -80,12 +80,20 @@ export default new Vuex.Store({
       },
       registrar(context, datos){
         return new Promise((resolve,reject) => {
-          axios.post('/controller/create_user.php',{
-            firstname: datos.firstname,
-            lastname : datos.lastname,
+          axios.post('/controller/create_user.php',JSON.stringify({
+            idEstado: 1,
+            idRol: 3,
             username: datos.username,
-            password: datos.password
-          }).then(response => {
+            password: datos.password,
+            nombres: datos.nombres,
+            apellidos: datos.apellidos,
+            genero : datos.genero,
+            fecNac : datos.fecNac,
+            tipoDocumento : datos.tipoDocumento,
+            numDocumento : datos.numDocumento,
+            correoElectronico : datos.correoElectronico,
+            telefono : datos.telefono
+          })).then(response => {
             resolve(response.data)
           }).catch(error => {
             console.log(error)
