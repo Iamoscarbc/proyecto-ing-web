@@ -22,47 +22,53 @@
                   tbody-classes="list"
                   :data="tableData">
         <template slot="columns">
-          <th>Imagen</th>
-          <th>Nombre de Usuario</th>
-          <th>Nombres</th>
-          <th>Apellidos</th>
-          <th>Tipo</th>
+          <th># Viaje</th>
+          <th>Tipo Viaje</th>
+          <th>Fecha de Compra</th>
+          <th>Origen (Ida)</th>
+          <th>Destino (Ida)</th>
+          <th>Origen (Vuelta)</th>
+          <th>Destino (Vuelta)</th>
           <th></th>
         </template>
 
         <template slot-scope="{row}">
             <th scope="row">
-                <div class="media align-items-center">
-                    <a href="#" class="avatar rounded-circle mr-3">
-                        <img v-if="row.imagen" alt="Image placeholder" :src="row.imagen">
-                        <img v-else alt="Image placeholder" src="img/brand/man.png">
-                    </a>
-                    <div class="media-body">
-                        <span class="name mb-0 text-sm">{{row.title}}</span>
-                    </div>
-                </div>
+                <badge class="badge-dot mr-4" :type="`bg-success`">
+                    <span class="status" style="text-transform:capitalize">{{row.idVenta}}</span>
+                </badge>
             </th>
             <td>
                 <badge class="badge-dot mr-4" :type="`bg-success`">
-                    <i :class="`bg-success`"></i>
-                    <span class="status">{{row.username}}</span>
+                    <span class="status" style="text-transform:capitalize" v-if="vueltaOrigen == null">Solo Ida</span>
+                    <span class="status" style="text-transform:capitalize" v-else>Ida y Vuelta</span>
                 </badge>
             </td>
             <td>
                 <badge class="badge-dot mr-4" :type="`bg-success`">
-                    <span class="status" style="text-transform:capitalize">{{row.nombres}}</span>
+                    <span class="status" style="text-transform:capitalize">{{row.fechaCompra}}</span>
                 </badge>
             </td>
             <td>
                 <badge class="badge-dot mr-4" :type="`bg-success`">
-                    <span class="status" style="text-transform:capitalize">{{row.apellidos}}</span>
+                    <span class="status" style="text-transform:capitalize">{{row.idaOrigen}}</span>
                 </badge>
             </td>
             <td>
                 <badge class="badge-dot mr-4" :type="`bg-success`">
-                    <span class="status" v-if="row.idRol == 1">Master</span>
-                    <span class="status" v-else-if="row.idRol == 2">Administrador</span>
-                    <span class="status" v-else>Cliente</span>
+                    <span class="status" style="text-transform:capitalize">{{row.idaDestino}}</span>
+                </badge>
+            </td>
+            <td>
+                <badge class="badge-dot mr-4" :type="`bg-success`">
+                    <span class="status" style="text-transform:capitalize" v-if="vueltaOrigen == null">-</span>
+                    <span class="status" style="text-transform:capitalize" v-else>{{row.vueltaOrigen}}</span>
+                </badge>
+            </td>
+            <td>
+                <badge class="badge-dot mr-4" :type="`bg-success`">
+                    <span class="status" style="text-transform:capitalize" v-if="vueltaDestino == null">-</span>
+                    <span class="status" style="text-transform:capitalize" v-else>{{row.vueltaDestino}}</span>
                 </badge>
             </td>
             <!-- <td>
@@ -76,7 +82,7 @@
                 </div>
                 </div>
             </td> -->
-            <td class="text-right">
+            <!-- <td class="text-right">
                 <base-dropdown class="dropdown"
                             position="right" style="cursor:pointer">
                   <a slot="title" class="btn btn-sm btn-icon-only text-light" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -87,13 +93,13 @@
                       <button class="dropdown-item" v-b-modal.modal-editar @click="obtenerId(row.id)">Configuración</button>
                   </template>
                 </base-dropdown>
-            </td>
+            </td> -->
         </template>
 
       </base-table>
     </div>
 
-    <Modal1 :id_user="id_user" :tableData="tableData"></Modal1>    
+    <!-- <Modal1 :id_user="id_user" :tableData="tableData"></Modal1>     -->
 
     <div class="card-footer d-flex justify-content-end"
          :class="type === 'dark' ? 'bg-transparent': ''">
@@ -103,12 +109,9 @@
   </div>
 </template>
 <script>
-import Modal1 from '../Modal/Modal1'
+// import Modal1 from '../Modal/Modal1'
   export default {
-    name: 'users-table',
-    components:{
-      Modal1
-    },
+    name: 'historial',
     props: {
       type: {
         type: String
@@ -126,7 +129,7 @@ import Modal1 from '../Modal/Modal1'
         let token = this.$store.state.token;
         let _this = this;
         if(token){
-            this.$store.dispatch('recuperarUsers',{
+            this.$store.dispatch('get_pasajes',{
                 jwt: token
             }).then(response => {
                 if(response.success == true){

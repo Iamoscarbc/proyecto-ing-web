@@ -685,5 +685,4 @@
             transform: scaleY(0);
   }
 }
-
 </style>

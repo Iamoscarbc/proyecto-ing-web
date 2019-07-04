@@ -99,11 +99,11 @@ let router = new Router({
           // which is lazy-loaded when the route is visited.
           component: () => import(/* webpackChunkName: "demo" */ './views/Dashboard.vue')
         },
-        {
-          path: '/icons',
-          name: 'icons',
-          component: () => import(/* webpackChunkName: "demo" */ './views/Icons.vue')
-        },
+        // {
+        //   path: '/icons',
+        //   name: 'icons',
+        //   component: () => import(/* webpackChunkName: "demo" */ './views/Icons.vue')
+        // },
         {
           path: '/profile',
           name: 'profile',
@@ -118,6 +118,11 @@ let router = new Router({
           path: '/tables',
           name: 'tables',
           component: () => import(/* webpackChunkName: "demo" */ './views/Tables.vue')
+        },
+        {
+          path: '/historial',
+          name: 'historial',
+          component: () => import(/* webpackChunkName: "demo" */ './views/VistaHistorial.vue')
         }
       ]
     }

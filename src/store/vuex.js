@@ -188,6 +188,30 @@ export default new Vuex.Store({
           })
         })
       },
+      get_pasajes(context,data){
+        return new Promise((resolve,reject) => {
+          axios.post('/controller/get_pasajes.php',JSON.stringify({
+            jwt: data.jwt,
+          })).then(response => {
+            resolve(response.data)
+          }).catch(error => {
+            console.log(error)
+            reject(error)
+          })
+        })
+      },
+      get_pasajes_general(context,data){
+        return new Promise((resolve,reject) => {
+          axios.post('/controller/get_pasajes_general.php',JSON.stringify({
+            jwt: data.jwt,
+          })).then(response => {
+            resolve(response.data)
+          }).catch(error => {
+            console.log(error)
+            reject(error)
+          })
+        })
+      },
       generar_reserva(context,data){
         return new Promise((resolve,reject) => {
           axios.post('/controller/register_venta.php',JSON.stringify({

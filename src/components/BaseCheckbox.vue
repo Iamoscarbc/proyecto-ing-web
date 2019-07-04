@@ -5,8 +5,7 @@
            class="custom-control-input"
            type="checkbox"
            :disabled="disabled"
-           v-model="model"
-           required/>
+           v-model="model"/>
     <label :for="cbId" class="custom-control-label">
       <slot>
         <span v-if="inline">&nbsp;</span>
