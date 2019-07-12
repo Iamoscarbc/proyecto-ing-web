@@ -320,55 +320,54 @@ import Swal from 'sweetalert2'
                         Swal.fire({
                             type: 'success',
                             title: "Su reserva fue guardada con éxito.",
-                            html: `<h2 class="text-dark">Su número de reserva es: <span class="text-danger">${response.idVenta}</span></h2>`,
-                                //   `<h3>¿Desea Enviar su ticket al correo?</h3><br/>
-                                //   <input class="form-control" placeholder="Correo Electrónico" type="email" id="emailEnvio"><br/>
-                                //   <span class="text-danger" id="observacion" style="display:none;">No es un correo electrónico válido</span></br>
-                                //   <div class="d-flex flex-row justify-content-between">
-                                //     <button class="btn btn-default" id="confirmarEnvio">Confirmar</button>
-                                //     <button class="btn btn-danger" id="cancelarEnvio">Cancelar</button>
-                                //   </div>`,
+                            html: `<h2 class="text-dark">Su número de reserva es: <span class="text-danger">${response.idVenta}</span></h2>
+                                    <h3>¿Desea Enviar su ticket al correo?</h3><br/>
+                                  <input class="form-control" placeholder="Correo Electrónico" type="email" id="emailEnvio"><br/>
+                                  <span class="text-danger" id="observacion" style="display:none;">No es un correo electrónico válido</span></br>
+                                  <div class="d-flex flex-row justify-content-between">
+                                    <button class="btn btn-default" id="confirmarEnvio">Confirmar</button>
+                                    <button class="btn btn-danger" id="cancelarEnvio">Cancelar</button>
+                                  </div>`,
                             showConfirmButton : false,
                             onBeforeOpen: () => {
 
                                 const confirmarEnvio = document.getElementById('confirmarEnvio')
                                 const cancelarEnvio = document.getElementById('cancelarEnvio')
 
-                                // confirmarEnvio.addEventListener('click', () => {
-                                //     const emailEnvio = document.getElementById("emailEnvio").value;
-                                //     const observacion = document.getElementById("observacion")
-                                //     let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-                                //     if (emailRegex.test(emailEnvio)){ 
-                                //         observacion.style.display = "none";      
-                                //         _this.$store.dispatch('sendEmail',{
-                                //             ticket: response.idVenta,
-                                //             destinatario: emailEnvio,
-                                //         }).then(response2 =>{
-                                //             console.log(response2)
-                                //         })                             
-                                //         // Swal.close()
-                                //         Swal.fire({
-                                //             type: 'success',
-                                //             title: "Se enviará el correo hacia "+emailEnvio,
-                                //             timer: 2500,
-                                //             showConfirmButton: false
-                                //         })
-                                //     }else{
-                                //         observacion.style.display = "";
-                                //     }
-                                // })
+                                confirmarEnvio.addEventListener('click', () => {
+                                    const emailEnvio = document.getElementById("emailEnvio").value;
+                                    const observacion = document.getElementById("observacion")
+                                    let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+                                    if (emailRegex.test(emailEnvio)){ 
+                                        observacion.style.display = "none";      
+                                        _this.$store.dispatch('sendEmail',{
+                                            ticket: response.idVenta,
+                                            destinatario: emailEnvio,
+                                        }).then(response2 =>{
+                                            Swal.fire({
+                                                type: 'success',
+                                                title: "Se enviará el correo hacia "+emailEnvio,
+                                                timer: 2500,
+                                                showConfirmButton: false
+                                            })
+                                            _this.$router.replace("/index");
+                                        })                  
+                                    }else{
+                                        observacion.style.display = "";
+                                    }
+                                })
 
-                                // cancelarEnvio.addEventListener('click', () => {
-                                //     const observacion = document.getElementById("observacion")
-                                //     observacion.style.display = "none";  
-                                //     Swal.close()
-                                //     Swal.fire({
-                                //         type: 'warning',
-                                //         title: "No se enviará ningún correo",
-                                //         showCloseButton: true,
-                                //         showConfirmButton: false
-                                //     })
-                                // })
+                                cancelarEnvio.addEventListener('click', () => {
+                                    const observacion = document.getElementById("observacion")
+                                    observacion.style.display = "none";  
+                                    Swal.close()
+                                    Swal.fire({
+                                        type: 'warning',
+                                        title: "No se enviará ningún correo",
+                                        showCloseButton: true,
+                                        showConfirmButton: false
+                                    })
+                                })
                             },
                         })
                     }

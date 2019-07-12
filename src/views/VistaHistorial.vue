@@ -86,7 +86,7 @@
   import Historial from './Historial'
   import HistorialG from './HistorialG'
   export default {
-    name: 'Vista Historial',
+    name: 'VistaHistorial',
     data() {
       return {
         model: {
