@@ -34,7 +34,7 @@
           <th scope="row">
             <div class="media align-items-center">
               <a href="#" class="avatar rounded-circle mr-3">
-                <img alt="Image placeholder" :src="row.img">
+                <img  :src="row.img">
               </a>
               <div class="media-body">
                 <span class="name mb-0 text-sm">{{row.title}}</span>
@@ -53,16 +53,16 @@
           <td>
             <div class="avatar-group">
               <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                <img alt="Image placeholder" src="img/theme/team-1-800x800.jpg">
+                <img  src="img/theme/team-1-800x800.jpg">
               </a>
               <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
-                <img alt="Image placeholder" src="img/theme/team-2-800x800.jpg">
+                <img  src="img/theme/team-2-800x800.jpg">
               </a>
               <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
-                <img alt="Image placeholder" src="img/theme/team-3-800x800.jpg">
+                <img  src="img/theme/team-3-800x800.jpg">
               </a>
               <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
-                <img alt="Image placeholder" src="img/theme/team-4-800x800.jpg">
+                <img  src="img/theme/team-4-800x800.jpg">
               </a>
             </div>
           </td>

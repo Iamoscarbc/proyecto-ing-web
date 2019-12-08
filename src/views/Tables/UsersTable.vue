@@ -34,8 +34,8 @@
             <th scope="row">
                 <div class="media align-items-center">
                     <a href="#" class="avatar rounded-circle mr-3">
-                        <img v-if="row.imagen" alt="Image placeholder" :src="row.imagen">
-                        <img v-else alt="Image placeholder" src="img/brand/man.png">
+                        <img v-if="row.imagen"  :src="row.imagen">
+                        <img v-else  src="img/brand/man.png">
                     </a>
                     <div class="media-body">
                         <span class="name mb-0 text-sm">{{row.title}}</span>

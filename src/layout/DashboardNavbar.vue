@@ -17,7 +17,7 @@
                 <base-dropdown class="nav-link pr-0">
                     <div class="media align-items-center" slot="title">
                       <span v-if="$store.state.data" class="avatar avatar-sm rounded-circle">
-                        <img alt="Image placeholder" src="img/theme/team-4-800x800.jpg">
+                        <img  src="img/theme/team-4-800x800.jpg">
                       </span>
                       <div class="media-body ml-2 d-none d-lg-block">
                           <span class="mb-0 text-sm  font-weight-bold" style="text-transform: capitalize;cursor:pointer;">{{this.firstname_model}} {{this.lastname_model}}</span>

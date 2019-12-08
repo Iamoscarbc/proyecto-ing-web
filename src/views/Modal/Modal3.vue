@@ -16,7 +16,7 @@
                             <div class="d-flex flex-row justify-content-between p-2" style="width:100%">
                                 <div class="d-flex flex-column">
                                     <span class="text-danger">Hora Salida:</span>
-                                    <span class="text-default">{{viaje.horaSalida}}</span>
+                                    <span class="text-default">{{viaje.arriveDate}}</span>
                                 </div>
                                 <div class="d-flex flex-column">
                                     <span class="text-danger">Lugar de Origen:</span>

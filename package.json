@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint",
     "deploy": "gh-pages -d dist"
   },
-  "homepage":"https://iamoscarbc.github.io/proyecto-ing-web/",
+  "homepage": "https://iamoscarbc.github.io/proyecto-ing-web/",
   "dependencies": {
     "axios": "^0.19.0",
     "bootstrap": "4.3.1",
